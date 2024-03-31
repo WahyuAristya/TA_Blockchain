@@ -1,0 +1,30 @@
+{
+    "name": "crowdfunding",
+    "version": "1.0.0",
+    "description": "TA",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "homepage": "",
+    "devDependencies": {
+        "@nomiclabs/hardhat-ethers": "^2.0.5",
+        "@nomiclabs/hardhat-waffle": "^2.0.3",
+        "chai": "^4.3.6",
+        "ethereum-waffle": "^4.0.10",
+        "ethers": "^5.7.2",
+        "hardhat": "^2.8.3"
+    },
+    "dependencies": {
+        "@enkryptcom/connector-wagmi": "^0.1.2",
+        "@tanstack/react-query": "^5.22.2",
+        "@walletconnect/client": "^1.8.0",
+        "axios": "^1.6.7",
+        "eth-connect": "^6.2.4",
+        "moralis": "^2.25.1",
+        "viem": "^2.7.13",
+        "wagmi": "^2.5.7",
+        "walletconnect": "^1.7.8",
+        "web3modal": "^1.9.12"
+    }
+}
