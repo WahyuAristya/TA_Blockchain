@@ -4,6 +4,9 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ethToIdrConverter } from '../helper/helper';
+import authWrapper from "../helper/authWrapper";
+import Loader from "../components/Loader";
+import { darkTheme, ConnectWallet  } from "@thirdweb-dev/react";
 
 const Navbar = () => {
 
@@ -52,15 +55,39 @@ const Navbar = () => {
                 
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button type="button" className="p-1 w-70 truncate rounded-full text-greay hover:text-greay ">
+                {/* <button type="button" className="p-1 w-70 truncate rounded-full text-greay hover:text-greay " >
                   <span >{account}</span>
-                </button>
+                </button> */}
+                
                 
 
                 {/* <!-- Profile  --> */}
                 <div className="ml-3 relative">
                     <div>
-                        <button
+                    <ConnectWallet
+                        theme={darkTheme({
+                            colors: {
+                                primaryButtonBg: "#4CAF50",
+                                primaryButtonText: "#ededef",
+                                connectedButtonBg: "#F7C984",
+                                connectedButtonBgHover: "#262830",
+                                walletSelectorButtonHoverBg:"#262830",
+                                secondaryButtonText: "#262830",
+                                primaryText: "##262830",
+                            }
+                            })}
+                            modalTitle={"Choose Your Wallet"}
+                            modalSize={"compact"}
+                            welcomeScreen={{
+                            title: "Welcome To Crowdfunding Donation",
+                            subtitle: "Please Connect a Wallet to Proceed",
+                            }}
+                            showThirdwebBranding={true}
+                            autoConnect={true}
+                            switchToActiveChain={false}
+                            style={{ fontSize: "1.5rem", padding: "0.9rem 1.7rem" }}
+                    />
+                        {/* <button
                         type="button"
                         className="flex items-center text-sm rounded-md focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-white"
                         id="user-menu-button"
@@ -73,7 +100,9 @@ const Navbar = () => {
                             alt="User account"
                             className="h-8 w-8 rounded-full shadow-md"
                         />
-                        </button>
+                        </button> */}
+                        <div>
+                    </div>
                     </div>
                     </div>
 

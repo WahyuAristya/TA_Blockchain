@@ -4,10 +4,20 @@ import FundRiserForm from "../components/FundRiserForm";
 import { useSelector } from "react-redux";
 import FundRiserCard from "../components/FundRiserCard";
 import Loader from "../components/Loader";
+import { useRouter } from "next/router";
+import { useConnectionStatus, ConnectWallet  } from "@thirdweb-dev/react";
 
 const Dashboard = () => {
-
   const projectsList = useSelector(state=>state.projectReducer.projects)
+  const connectionStatus = useConnectionStatus();
+  console.log(connectionStatus)
+  const router = useRouter();
+
+
+  if (connectionStatus === "disconnected") {
+    router.push("/");
+    return null;
+  }
 
   return (
     <div className="px-2 py-4 flex flex-col lg:px-12 lg:flex-row ">
