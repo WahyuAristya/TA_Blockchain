@@ -25,9 +25,6 @@ export const loadAccount = async (web3, dispatch) => {
   const account = await web3.eth.getAccounts();
   const network = await web3.eth.net.getId();
 
-  // if (network !== Number(process.env.REACT_APP_NETWORK_ID)) {
-  //   alert("Contract not deployed in this network !");
-  // }
   dispatch(actions.walletAddressLoaded(account[0]));
   localStorage.setItem("ADDRESS",account[0])
   return account;
