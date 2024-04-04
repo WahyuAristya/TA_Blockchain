@@ -148,7 +148,7 @@ function MyApp({ Component, pageProps }) {
       <ThirdwebProvider
 				activeChain="localhost"
         clientId="7e19a827c2ddf24b50144bf6a906cfc5"
-        autoConnect={false}
+        autoConnect={true}
         supportedWallets={[
           metamaskWallet({ recommended: true }),
           coinbaseWallet(),

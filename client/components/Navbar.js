@@ -62,18 +62,29 @@ const Navbar = () => {
                 
 
                 {/* <!-- Profile  --> */}
-                <div className="ml-3 relative">
+                <div className="ml-3 relative " style={{marginTop: "2rem"}}>
                     <div>
                     <ConnectWallet
                         theme={darkTheme({
                             colors: {
-                                primaryButtonBg: "#4CAF50",
-                                primaryButtonText: "#ededef",
+                                modalBg: "#F7C984",
+                                dropdownBg: "#F7C984",
+                                borderColor: "#262830",
+                                separatorLine: "#262830",
+                                primaryText: "#262830",
+                                secondaryText: "#001433",
+                                accentButtonText: "#ededef",
+                                primaryButtonBg: "#ededef",
+                                accentButtonBg: "#001433",
+                                accentText: "#001433",
+                                secondaryButtonBg: "#ededef",
+                                secondaryButtonHoverBg: "#ededef",
+                                walletSelectorButtonHoverBg:"#ededef",
+                                selectedTextColor: "#22232b",
+                                connectedButtonBgHover: "#ededef",
                                 connectedButtonBg: "#F7C984",
-                                connectedButtonBgHover: "#262830",
-                                walletSelectorButtonHoverBg:"#262830",
-                                secondaryButtonText: "#262830",
-                                primaryText: "##262830",
+                                selectedTextBg: "#22232b",
+                                secondaryButtonText: "#22232b",
                             }
                             })}
                             modalTitle={"Choose Your Wallet"}
@@ -85,7 +96,11 @@ const Navbar = () => {
                             showThirdwebBranding={true}
                             autoConnect={true}
                             switchToActiveChain={false}
-                            style={{ fontSize: "1.5rem", padding: "0.9rem 1.7rem" }}
+                            showFullAddress={true}
+                            modalTitleIconUrl={
+                                "https://drive.google.com/file/d/1XlBpJj_89UMGr7wqUdLwirQvD4a7iuaF/view?usp=drive_link"
+                              }
+                            style={{ fontSize: "1.2rem", padding: "0.7rem 2rem" }}
                     />
                         {/* <button
                         type="button"
@@ -118,7 +133,7 @@ const Navbar = () => {
             </div>
             {/* Box untuk menampilkan informasi konversi */}
             {ethToIdrRate !== null && (
-                <div className="ml-auto border border-[#F7C984] border-2 border-solid rounded-md text-sm text-greay mt-1 p-2 max-w-[417px]">
+                <div className="ml-auto border border-[#F7C984] border-2 border-solid rounded-md text-sm text-greay mt-1 p-2 max-w-[417px]" style={{marginTop: "2rem"}}>
                     <div className="flex flex-col">
                     <div className="font-mono">Eth Price Information</div>
                     <div className="text-left font-bold">
