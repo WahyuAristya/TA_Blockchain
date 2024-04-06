@@ -114,7 +114,8 @@ import {
 	trustWallet,
 	walletConnect,
 	zerionWallet,
-  xdefiWallet} from "@thirdweb-dev/react";
+  xdefiWallet,
+  useConnectionStatus} from "@thirdweb-dev/react";
 
 function MyApp({ Component, pageProps }) {
 

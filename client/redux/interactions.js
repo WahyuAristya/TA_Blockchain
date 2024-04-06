@@ -8,7 +8,7 @@ import { groupContributionByProject, groupContributors, projectDataFormatter, st
 // const crowdFundingContractAddress = "0x0c5F24E0bFc35daF686B3Ab14ddcC1B615aD145c"; //deploy testnet sepolia
 // const crowdFundingContractAddress = "0x845907c23e1146860ce6fceA4f2dD53361450885"; //deploy testnet sepolia rev
 
-const crowdFundingContractAddress = "0x1579587BfB45B8C01AD8254360b65ac014DFbf22";
+const crowdFundingContractAddress = "0x429dABcAa20500336b9ea4D75e4857f20540f87e";
 
 //Load web3 
 export const loadWeb3 = async (dispatch) => {
@@ -103,7 +103,9 @@ export const getAllFunding = async (CrowdFundingContract, web3, dispatch, props)
       const splitDeadline = formattedProjectData.deadline.split('/')
       const deadlinePassed = new Date(splitDeadline[2],splitDeadline[1]-1,splitDeadline[0], 23, 59) < new Date();
 
-      if (deadlinePassed) {
+      console.log(formattedProjectData.state)
+
+      if (deadlinePassed && (formattedProjectData.state !== "Successful")) {
         formattedProjectData.state = 'Expired'
       }
       projects.push(formattedProjectData);

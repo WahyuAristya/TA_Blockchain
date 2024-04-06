@@ -230,10 +230,6 @@ useEffect(() => {
 
 
   const requestForWithdraw = (projectId) => {
-    // if (props.state === 'Expired') {
-    //   toastError('Deadline has passed');
-    //   return;
-    // }
     
     setBtnLoader(projectId);
     const contributionAmount = etherToWei(props.contractBalance);
@@ -328,13 +324,21 @@ useEffect(() => {
         )}
               {props.creator === account && !withdrawRequested ? (
                 <>
-                  <label className="text-sm text-gray-700 font-semibold">Withdraw request :</label>
-                  <div className="flex flex-row">
-                    <button className="withdraw-button" onClick={() => requestForWithdraw(props.address)} disabled={btnLoader === props.address}>
-                      {btnLoader === props.address ? 'Loading...' : 'Withdraw'}
-                    </button>
-                  </div>
-                  </>
+                  {props.contractBalance !== '0' ? (
+                    <>
+                      <label className="text-sm text-gray-700 font-semibold">Withdraw request :</label>
+                      <div className="flex flex-row">
+                        <button className="withdraw-button" onClick={() => requestForWithdraw(props.address)} disabled={btnLoader === props.address}>
+                          {btnLoader === props.address ? 'Loading...' : 'Withdraw'}
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-center mt-4">
+                      <p className="text-md font-bold font-sans text-gray">No balance available for withdrawal</p>
+                    </div>
+                  )}
+                </>
               ) : (
                 ''
               )}

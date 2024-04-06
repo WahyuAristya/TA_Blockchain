@@ -84,8 +84,8 @@ function returnAllProjects() external view returns(Project[] memory){
 function contribute(address _projectAddress) public payable{
 
    uint256 minContributionAmount = Project(_projectAddress).minimumContribution();
-   // Project.State projectState = Project(_projectAddress).state();
-   // require(projectState == Project.State.Fundraising,'Invalid state');
+   Project.State projectState = Project(_projectAddress).state();
+   require(projectState == Project.State.Fundraising,'Invalid state');
    require(msg.value >= minContributionAmount,'Contribution amount is too low !');
    // Call function
    Project(_projectAddress).contribute{value:msg.value}(msg.sender);

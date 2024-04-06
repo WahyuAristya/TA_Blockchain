@@ -106,10 +106,10 @@ contract Project{
 
 
     function checkFundingCompleteOrExpire() internal {
-        if(blockTimestampMilliseconds > deadline && state == State.Fundraising){
-            state = State.Expired;
-        } else if(raisedAmount >= targetContribution && state != State.Expired){
+        if(raisedAmount >= targetContribution){
             state = State.Successful; 
+        }else if(block.timestamp > deadline){
+            state = State.Expired; 
         }
         completeAt = block.timestamp;
     }
@@ -126,8 +126,6 @@ contract Project{
 function contribute(address _contributor) public payable {
     // require(state == State.Fundraising, "Project is not in fundraising state");
     // require(block.timestamp * 1000 > deadline, "Deadline lewat");
-    
-    // checkFundingCompleteOrExpire();
     if (state != State.Expired) {
         if (contributiors[_contributor] == 0){
                 noOfContributers++;
@@ -135,6 +133,7 @@ function contribute(address _contributor) public payable {
         contributiors[_contributor] += msg.value;
         raisedAmount += msg.value;
         emit FundingReceived(_contributor,msg.value,raisedAmount);
+        checkFundingCompleteOrExpire();
     }
     
 }
@@ -163,7 +162,7 @@ function contribute(address _contributor) public payable {
         
 
         emit WithdrawRequestCreated(numOfWithdrawRequests,_description, _amount,0,false,_reciptent );
-        // checkFundingCompleteOrExpire();
+        checkFundingCompleteOrExpire();
     }
 
 

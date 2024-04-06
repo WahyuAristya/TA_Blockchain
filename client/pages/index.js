@@ -38,6 +38,7 @@ export default function Home() {
   const address = useAddress();
   console.log(address)
 
+  
   const YourComponent = () => {
     return (
       <div style={{ textAlign: 'center', position: 'absolute', marginTop: "100px" }}>
@@ -46,52 +47,58 @@ export default function Home() {
           alt="Animated Title"
           style={{ width: '100%', maxWidth: '200px', marginBottom: '20px', display: 'block', margin: '0 auto' }}
         />
-      <h1 style={{ fontWeight: 'bold', fontSize: '1.3rem', margin: '0rem 0' }}>Your Gateway to the New Decentralized Crowdfunding World</h1>
-      <p style={{ fontWeight: 'light', fontSize: '1rem', margin: '0.5rem 0' }}> Please Connect a Wallet to Proceed</p>
+      <h1 style={{ fontWeight: 'bold', fontSize: '1.2rem', lineHeight:'1.6', margin: '0.6rem ' }}>"Your Gateway to the New Decentralized Crowdfunding World"</h1>
+      <p style={{ fontWeight: 'normal ', fontSize: '1rem',  margin: '0.5rem ' }}> Please Connect a Wallet to Proceed</p>
       </div>
     );
   };
 
   return (
-    <div className="flex flex-col items-center justify-center my-40">
-          <ConnectWallet
-            theme={darkTheme({
-              colors: {
-                primaryButtonBg: "#4CAF50",
-                primaryButtonText: "#ededef",
-                modalBg: "#F7C984",
-                dropdownBg: "#F7C984",
-                borderColor: "#262830",
-                separatorLine: "#262830",
-                primaryText: "#1a1523",
-                secondaryText: "#616161",
-                accentButtonText: "#ededef",
-                accentButtonBg: "#001433",
-                accentText: "#001433",
-                walletSelectorButtonHoverBg: "#ededef",
-              }
-            })}
-            modalTitle={"Choose Your Wallet"}
-            modalSize={"wide"}
-            // welcomeScreen={{
-            //   img: {
-            //     src: "/donation.ico",
-            //     width: 150,
-            //     height: 150,
-            //   },
-            //   title: "Your Gateway to the New Decentralized Crowdfunding World",
-            //   subtitle: "Please Connect a Wallet to Proceed",
-            // }}
-            welcomeScreen={() => {
-              return <YourComponent />;
-            }}
-            showThirdwebBranding={false}
-            onConnect={connect}
-            autoConnect={true}
-            switchToActiveChain={false}
-            showFullAddress={true}
-            style={{ fontSize: "1.5rem", padding: "0.9rem 1.7rem" }}
-          />
-  </div>
+    // <div className="relative h-screen">
+    <div className="relative h-screen"style={{backgroundImage: "url('/BG1.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+      <div className="absolute top-8 left-10 flex-shrink-0 flex items-center">
+        <img
+          src="/donation.ico"
+          style={{ width: '100%', maxWidth: '40px', marginRight: '10px', display: 'block', margin: '1 auto' }}
+        />
+        <h4 className='font-mono text-xl text-white font-bold lg:block'>CROWDFUNDING DONATION</h4>
+        {/* <h4 className='font-mono text-xl text-gray-900 font-bold lg:block'>CROWDFUNDING DONATION</h4> */}
+      </div>
+      <div className="flex flex-col items-center justify-center h-full">
+            <ConnectWallet
+              theme={darkTheme({
+                colors: {
+                  primaryButtonBg: "#4CAF50",
+                  primaryButtonText: "#ededef",
+                  modalBg: "#F7C984",
+                  dropdownBg: "#F7C984",
+                  borderColor: "#262830",
+                  separatorLine: "#262830",
+                  primaryText: "#1a1523",
+                  secondaryText: "#616161",
+                  accentButtonText: "#ededef",
+                  accentButtonBg: "#001433",
+                  accentText: "#001433",
+                  walletSelectorButtonHoverBg: "#ededef",
+                }
+              })}
+              modalTitle={"Choose Your Wallet"}
+              modalSize={"wide"}
+              // welcomeScreen={{
+              //   title: "Your Gateway to the New Decentralized Crowdfunding World",
+              //   subtitle: "Please Connect a Wallet to Proceed",
+              // }}
+              welcomeScreen={() => {
+                return <YourComponent />;
+              }}
+              showThirdwebBranding={false}
+              onConnect={connect}
+              autoConnect={true}
+              switchToActiveChain={false}
+              showFullAddress={true}
+              style={{ fontSize: "1.5rem", padding: "0.9rem 1.7rem" }}
+            />
+      </div>
+    </div>
   )
 }

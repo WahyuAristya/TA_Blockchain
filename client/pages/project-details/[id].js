@@ -6,6 +6,7 @@ import Loader from '../../components/Loader'
 import WithdrawRequestCard from '../../components/WithdrawRequestCard'
 import authWrapper from '../../helper/authWrapper'
 import { getAllWithdrawRequest, getContributors } from '../../redux/interactions'
+import Link from 'next/link';
 
 const ProjectDetails = () => {
 
@@ -48,9 +49,20 @@ const ProjectDetails = () => {
   return (
     <div className="px-2 py-4 flex flex-col lg:px-12 lg:flex-row ">
     <div className="lg:w-7/12 my-2 lg:my-0 lg:mx-2">
+
         {
           filteredProject?
+        <>
+        {/* Back button */}
+          <div className="flex justify-left">
+              <Link href="/dashboard">
+                <a className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                  Back
+                </a>
+              </Link>
+            </div>
             <FundRiserCard props={filteredProject[0]} pushWithdrawRequests={pushWithdrawRequests}/>
+          </>
           :
           <Loader/>
         }
