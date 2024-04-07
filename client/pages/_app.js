@@ -141,8 +141,8 @@ function MyApp({ Component, pageProps }) {
     window.ethereum.on('accountsChanged', chainOrAccountChangedHandler);
     window.ethereum.on('chainChanged', chainOrAccountChangedHandler);
   }, [])
-  
-  
+
+
   return (
     <>
       <ToastContainer/>

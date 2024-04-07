@@ -10,7 +10,7 @@ import { groupContributionByProject, groupContributors, projectDataFormatter, st
 
 const crowdFundingContractAddress = "0x429dABcAa20500336b9ea4D75e4857f20540f87e";
 
-//Load web3 
+//Load web3
 export const loadWeb3 = async (dispatch) => {
   // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/61088a0a8b6d4a0b9db34c8957e3c2d5");
   // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/");
@@ -43,7 +43,7 @@ export const startFundRaising = async(web3,CrowdFundingContract,data,onSuccess,o
   const {minimumContribution,deadline,targetContribution,projectTitle,projectDesc,account} = data;
 
   await CrowdFundingContract.methods.createProject(minimumContribution,deadline,targetContribution,projectTitle,projectDesc).send({from:account})
-  .on('receipt', function(receipt){ 
+  .on('receipt', function(receipt){
 
     const projectsReceipt = receipt.events.ProjectStarted.returnValues;
     const contractAddress = projectsReceipt.projectContractAddress;
@@ -56,17 +56,17 @@ export const startFundRaising = async(web3,CrowdFundingContract,data,onSuccess,o
 
     onSuccess()
   })
-  .on('error', function(error){ 
+  .on('error', function(error){
     onError(error.message)
   })
 }
 
 // 1 - Get all funding project address
 // 2 - Connect with funding project contract
-// 3 - Get project details 
+// 3 - Get project details
 // export const getAllFunding = async(CrowdFundingContract,web3,dispatch) =>{
 //   const account = await loadAccount(web3, dispatch);
-  
+
 //   await CrowdFundingContract.methods.updateProjectStates().send({from:account, value: 0})
 //   const fundingProjectList = await CrowdFundingContract.methods.returnAllProjects().call()
 
@@ -127,7 +127,7 @@ export const contribute = async(crowdFundingContract,data,dispatch,onSuccess,onE
     dispatch(actions.amountContributor({projectId:contractAddress,amount:amount}))
     onSuccess()
   })
-  .on('error', function(error){ 
+  .on('error', function(error){
     onError(error.message)
   })
 }
@@ -156,7 +156,7 @@ export const createWithdrawRequest = async (web3,contractAddress,data,onSuccess,
       const formattedReqData = withdrawRequestDataFormatter(withdrawReqReceipt,withdrawReqReceipt.requestId)
       onSuccess(formattedReqData)
     })
-    .on('error', function(error){ 
+    .on('error', function(error){
       onError(error.message)
     })
 }
@@ -188,13 +188,13 @@ export const voteWithdrawRequest = async (web3,data,onSuccess,onError) =>{
     console.log(receipt)
     onSuccess()
   })
-  .on('error', function(error){ 
+  .on('error', function(error){
     onError(error.message)
   })
 
 }
 
-// Withdraw requested amount 
+// Withdraw requested amount
 export const withdrawAmount = async (web3,dispatch,data,onSuccess,onError) =>{
   const {contractAddress,reqId,account,amount} = data;
   var projectConnector = new web3.eth.Contract(Project.abi,contractAddress);
@@ -207,7 +207,7 @@ export const withdrawAmount = async (web3,dispatch,data,onSuccess,onError) =>{
     }))
     onSuccess()
   })
-  .on('error', function(error){ 
+  .on('error', function(error){
     onError(error.message)
   })
 }
@@ -223,4 +223,4 @@ export const getMyContributionList = async(crowdFundingContract,account) =>{
 }
 
 
-  
+

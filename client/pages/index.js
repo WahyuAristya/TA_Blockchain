@@ -53,18 +53,69 @@ export default function Home() {
     );
   };
 
+  // return (
+  //   <div className="relative h-screen">
+  //     <div className="absolute top-8 left-10 flex-shrink-0 flex items-center">
+  //       <img
+  //         src="/donation.ico"
+  //         style={{ width: '100%', maxWidth: '40px', marginRight: '10px', display: 'block', margin: '1 auto' }}
+  //       />
+  //       <h4 className='font-mono text-xl text-gray-900 font-bold lg:block'>CROWDFUNDING DONATION</h4>
+  //     </div>
+  //     <div className="flex flex-col items-center justify-center h-full">
+  //           <ConnectWallet
+  //             theme={darkTheme({
+  //               colors: {
+  //                 primaryButtonBg: "#4CAF50",
+  //                 primaryButtonText: "#ededef",
+  //                 modalBg: "#F7C984",
+  //                 dropdownBg: "#F7C984",
+  //                 borderColor: "#262830",
+  //                 separatorLine: "#262830",
+  //                 primaryText: "#1a1523",
+  //                 secondaryText: "#616161",
+  //                 accentButtonText: "#ededef",
+  //                 accentButtonBg: "#001433",
+  //                 accentText: "#001433",
+  //                 walletSelectorButtonHoverBg: "#ededef",
+  //               }
+  //             })}
+  //             modalTitle={"Choose Your Wallet"}
+  //             modalSize={"wide"}
+  //             // welcomeScreen={{
+  //             //   title: "Your Gateway to the New Decentralized Crowdfunding World",
+  //             //   subtitle: "Please Connect a Wallet to Proceed",
+  //             // }}
+  //             welcomeScreen={() => {
+  //               return <YourComponent />;
+  //             }}
+  //             showThirdwebBranding={false}
+  //             onConnect={connect}
+  //             autoConnect={true}
+  //             switchToActiveChain={false}
+  //             showFullAddress={true}
+  //             style={{ fontSize: "1.5rem", padding: "0.9rem 1.7rem" }}
+  //           />
+  //     </div>
+  //   </div>
+  // )
+
+
+
   return (
-    // <div className="relative h-screen">
-    <div className="relative h-screen"style={{backgroundImage: "url('/BG1.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+    <div className="relative h-screen flex flex-col lg:flex-row items-center justify-center">
       <div className="absolute top-8 left-10 flex-shrink-0 flex items-center">
         <img
           src="/donation.ico"
           style={{ width: '100%', maxWidth: '40px', marginRight: '10px', display: 'block', margin: '1 auto' }}
         />
-        <h4 className='font-mono text-xl text-white font-bold lg:block'>CROWDFUNDING DONATION</h4>
-        {/* <h4 className='font-mono text-xl text-gray-900 font-bold lg:block'>CROWDFUNDING DONATION</h4> */}
+        <h4 className='font-mono text-xl text-gray-900 font-bold lg:block'>CROWDFUNDING DONATION</h4>
       </div>
-      <div className="flex flex-col items-center justify-center h-full">
+      <div className="flex justify-center w-full items-center" style={{padding: '0 100px'}}>
+        <div className="flex flex-col w-full lg:w-2/3 px-8 lg:px-0" >
+          <h1 className="text-5xl font-bold mb-4 lg:text-5xl" style={{lineHeight:'1.1'}}>"Your Gateway to the New Decentralized Crowdfunding World"</h1>
+          <p className="text-2xl ,t-3">Welcome to the Crowdfunding Donation Web</p>
+          <div className="mt-8">
             <ConnectWallet
               theme={darkTheme({
                 colors: {
@@ -84,10 +135,6 @@ export default function Home() {
               })}
               modalTitle={"Choose Your Wallet"}
               modalSize={"wide"}
-              // welcomeScreen={{
-              //   title: "Your Gateway to the New Decentralized Crowdfunding World",
-              //   subtitle: "Please Connect a Wallet to Proceed",
-              // }}
               welcomeScreen={() => {
                 return <YourComponent />;
               }}
@@ -98,7 +145,19 @@ export default function Home() {
               showFullAddress={true}
               style={{ fontSize: "1.5rem", padding: "0.9rem 1.7rem" }}
             />
+          </div>
+        </div>
+        <div className="flex-shrink-0 mt-6 lg:mt-0 ml-auto" style={{ marginLeft: '50px' }}>
+          <img
+            src="/blockchain.png"
+            alt="Ethereum Logo"
+            style={{ width: '100%', maxWidth: '600px', height: 'auto'}}
+          />
+        </div>
       </div>
     </div>
-  )
+  );
+  
+
+
 }
