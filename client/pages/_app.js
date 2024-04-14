@@ -115,7 +115,13 @@ import {
 	walletConnect,
 	zerionWallet,
   xdefiWallet,
+  rainbowWallet,
+  cryptoDefiWallet,
+  rabbyWallet,
+  okxWallet,
   useConnectionStatus} from "@thirdweb-dev/react";
+  
+
 
 function MyApp({ Component, pageProps }) {
 
@@ -143,22 +149,25 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
 
+
   return (
     <>
       <ToastContainer/>
       <ThirdwebProvider
-				activeChain="localhost"
+				activeChain="sepolia"
         clientId="7e19a827c2ddf24b50144bf6a906cfc5"
         autoConnect={true}
         supportedWallets={[
           metamaskWallet({ recommended: true }),
-          coinbaseWallet(),
-          walletConnect(),
-          zerionWallet(),
+          rainbowWallet(),
           xdefiWallet(),
-          phantomWallet(),
-          trustWallet(),
+          rabbyWallet(),
+          okxWallet(),
         ]}
+        dAppMeta={{
+          name: "thirdweb powered dApp",
+          url: "http://localhost:3000/",
+        }}
 			>
 				<Component {...pageProps} />
 			</ThirdwebProvider>

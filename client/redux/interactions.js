@@ -4,17 +4,18 @@ import { useSelector } from 'react-redux';
 import CrowdFunding from '../artifacts/contracts/Crowdfunding.sol/Crowdfunding.json'
 import Project from '../artifacts/contracts/Project.sol/Project.json'
 import { groupContributionByProject, groupContributors, projectDataFormatter, state, withdrawRequestDataFormatter} from "../helper/helper";
+import { useAddress } from '@thirdweb-dev/react';
 
 // const crowdFundingContractAddress = "0x0c5F24E0bFc35daF686B3Ab14ddcC1B615aD145c"; //deploy testnet sepolia
-// const crowdFundingContractAddress = "0x845907c23e1146860ce6fceA4f2dD53361450885"; //deploy testnet sepolia rev
+const crowdFundingContractAddress = "0x037f26655b6442694062b4361FDE1E08081ef5b0"; //deploy testnet sepolia thirdweb
 
-const crowdFundingContractAddress = "0x429dABcAa20500336b9ea4D75e4857f20540f87e";
+// const crowdFundingContractAddress = "0x429dABcAa20500336b9ea4D75e4857f20540f87e";
 
 //Load web3
 export const loadWeb3 = async (dispatch) => {
-  // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/61088a0a8b6d4a0b9db34c8957e3c2d5");
+  const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/61088a0a8b6d4a0b9db34c8957e3c2d5");
   // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/");
-  const web3 = new Web3(Web3.givenProvider || "https://localhost:7545");
+  // const web3 = new Web3(Web3.givenProvider || "https://localhost:7545");
   dispatch(actions.web3Loaded(web3));
   return web3;
 };
@@ -22,13 +23,20 @@ export const loadWeb3 = async (dispatch) => {
 
 // Load connected wallet
 export const loadAccount = async (web3, dispatch) => {
-  const account = await web3.eth.getAccounts();
-  const network = await web3.eth.net.getId();
+  // const account = await web3.eth.getAccounts();
+  // console.log(await web3.eth.getAccounts());
+  // const network = await web3.eth.net.getId();
+  const account = localStorage.getItem("addressBaru")
 
-  dispatch(actions.walletAddressLoaded(account[0]));
-  localStorage.setItem("ADDRESS",account[0])
+  dispatch(actions.walletAddressLoaded(account));
+  localStorage.setItem("ADDRESS",account)
+  // const address = useAddress();
+  // console.log(address)
+  console.log(account)
   return account;
-};
+  };
+
+
 
 //Connect with crowd funding contract
 export const loadCrowdFundingContract = async(web3,dispatch) =>{
@@ -122,6 +130,7 @@ export const getAllFunding = async (CrowdFundingContract, web3, dispatch, props)
 // Contribute in fund raising project
 export const contribute = async(crowdFundingContract,data,dispatch,onSuccess,onError) =>{
   const {contractAddress,amount,account} = data;
+  console.log(account)
   await crowdFundingContract.methods.contribute(contractAddress).send({from:account,value:amount})
   .on('receipt', function(receipt){
     dispatch(actions.amountContributor({projectId:contractAddress,amount:amount}))
