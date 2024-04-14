@@ -112,8 +112,9 @@ export const withdrawRequestDataFormatter = (data) =>{
 
 export const connectWithWallet = async (onSuccess) => {
   //connect web3 with http provider
+  console.log("CONNECT WALLET")
   if (window.ethereum) {
-   window.ethereum.request({method:"eth_requestAccounts"})
+   ethereum.request({method:"eth_requestAccounts"})
    .then(res=>{
     onSuccess()
    }).catch(error=>{

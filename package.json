@@ -16,12 +16,16 @@
         "hardhat": "^2.8.3"
     },
     "dependencies": {
+        "@3rdweb/hooks": "^1.9.2",
+        "@3rdweb/react": "^1.9.3",
         "@enkryptcom/connector-wagmi": "^0.1.2",
         "@tanstack/react-query": "^5.22.2",
+        "@thirdweb-dev/react": "^4.6.1",
         "@walletconnect/client": "^1.8.0",
         "axios": "^1.6.7",
         "eth-connect": "^6.2.4",
         "moralis": "^2.25.1",
+        "thirdweb": "^5.4.0",
         "viem": "^2.7.13",
         "wagmi": "^2.5.7",
         "walletconnect": "^1.7.8",

@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { ethToIdrConverter } from '../helper/helper';
 import authWrapper from "../helper/authWrapper";
 import Loader from "../components/Loader";
-import { darkTheme, ConnectWallet  } from "@thirdweb-dev/react";
+import { darkTheme, ConnectWallet} from "@thirdweb-dev/react";
 
 const Navbar = () => {
 
@@ -98,7 +98,7 @@ const Navbar = () => {
                             }}
                             showThirdwebBranding={true}
                             autoConnect={true}
-                            switchToActiveChain={false}
+                            switchToActiveChain={true}
                             showFullAddress={true}
                             modalTitleIconUrl={
                                 "https://drive.google.com/file/d/1XlBpJj_89UMGr7wqUdLwirQvD4a7iuaF/view?usp=drive_link"
