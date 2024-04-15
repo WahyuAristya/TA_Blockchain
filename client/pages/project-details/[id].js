@@ -7,6 +7,7 @@ import WithdrawRequestCard from '../../components/WithdrawRequestCard'
 import authWrapper from '../../helper/authWrapper'
 import { getAllWithdrawRequest, getContributors } from '../../redux/interactions'
 import Link from 'next/link';
+import { useConnectionStatus, ConnectWallet  } from "@thirdweb-dev/react";
 
 const ProjectDetails = () => {
 
@@ -18,6 +19,7 @@ const ProjectDetails = () => {
 
   const [contributors, setContributors] = useState(null)
   const [withdrawReq, setWithdrawReq] = useState(null)
+  const connectionStatus = useConnectionStatus();
 
   useEffect(() => {
     if(id){
@@ -44,6 +46,11 @@ const ProjectDetails = () => {
     }else{
       setWithdrawReq([data])
     }
+  }
+
+  if (connectionStatus === "disconnected") {
+    router.push("/");
+    return null;
   }
 
   return (

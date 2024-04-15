@@ -4,6 +4,8 @@ import Loader from '../components/Loader'
 import authWrapper from '../helper/authWrapper'
 import { getMyContributionList } from '../redux/interactions'
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useConnectionStatus, ConnectWallet  } from "@thirdweb-dev/react";
 
 const MyContributions = () => {
 
@@ -11,6 +13,9 @@ const MyContributions = () => {
     const account = useSelector(state=>state.web3Reducer.account)
 
     const [contributions, setContributions] = useState(null)
+    const connectionStatus = useConnectionStatus();
+    const router = useRouter();
+
 
     useEffect(() => {
         (async() => {
@@ -21,6 +26,11 @@ const MyContributions = () => {
             }
         })();
     }, [crowdFundingContract])
+
+    if (connectionStatus === "disconnected") {
+        router.push("/");
+        return null;
+      }
 
   return (
     <div className="px-2 py-4 flex flex-wrap lg:px-12 lg:flex-row ">
