@@ -43,7 +43,7 @@ event ContributionReceived(
 
    deadline = deadline;
 
-   Project newProject = new Project(msg.sender,minimumContribution,deadline,targetContribution,projectTitle,projectDesc);
+   Project newProject = new Project(msg.sender, minimumContribution,deadline,targetContribution,projectTitle,projectDesc);
    projects.push(newProject);
  
  emit ProjectStarted(

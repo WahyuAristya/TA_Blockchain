@@ -79,8 +79,10 @@ const WithdrawRequestCard = ({ props, withdrawReq, setWithdrawReq, contractAddre
         <div className="inner-card my-6 w-full lg:w-2/5">
           <p className="text-md font-bold font-sans text-gray">Requested amount</p>
           <p className="text-sm font-bold font-sans text-gray-600 ">{props.amount} ETH </p>
-          <p className="text-md font-bold font-sans text-gray">Total vote</p>
-          <p className="text-sm font-bold font-sans text-gray-600 ">{props.totalVote}</p>
+          <p className="text-md font-bold font-sans text-gray">Trustees Total</p>
+          <p className="text-sm font-bold font-sans text-gray-600">5</p>
+          <p className="text-md font-bold font-sans text-gray">Approved vote</p>
+          <p className="text-sm font-bold font-sans text-gray-600">{props.totalVote}</p>
         </div>
         <div className="inner-card my-6 w-full lg:w-3/5">
           <p className="text-md font-bold font-sans text-gray">Recipient address</p>
@@ -96,15 +98,23 @@ const WithdrawRequestCard = ({ props, withdrawReq, setWithdrawReq, contractAddre
               </button>
             )
           ) : (
-            <button className="withdraw-button" disabled={hasVoted} onClick={() => vote(props.requestId)}>
-              {btnLoader === props.requestId ? 'Loading...' : 'Vote'}
-              {hasVoted ? ' Success' : ''}
+            <div>
+              {props.status === 'Completed' ? (
+              <button className="withdraw-button" disabled>
+              Withdraw Has Been Made
             </button>
+              ) : (
+                <button className="withdraw-button" disabled={hasVoted} onClick={() => vote(props.requestId)}>
+                  {btnLoader === props.requestId ? 'Loading...' : 'Vote'}
+                  {hasVoted ? ' Success' : ''}
+                </button>
+              )}
+            </div>
           )}
         </div>
       </div>
     </div>
   );
-};
+}; 
 
 export default WithdrawRequestCard;
