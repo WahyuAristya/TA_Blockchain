@@ -19,6 +19,7 @@
         "@3rdweb/hooks": "^1.9.2",
         "@3rdweb/react": "^1.9.3",
         "@enkryptcom/connector-wagmi": "^0.1.2",
+        "@heroicons/react": "^1.0.6",
         "@tanstack/react-query": "^5.22.2",
         "@thirdweb-dev/react": "^4.6.1",
         "@walletconnect/client": "^1.8.0",

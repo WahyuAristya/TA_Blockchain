@@ -248,7 +248,7 @@ useEffect(() => {
       if (pushWithdrawRequests) {
         pushWithdrawRequests(data);
       }
-      toastSuccess(`Successfully requested for withdraw ${props.contractBalance} ETH`);
+      toastSuccess(`Successfully requested for withdraw ${props.contractBalance} ETH! Waiting for Approval by Trustees`);
       setWithdrawRequested(true);
       localStorage.setItem(`withdrawn_${projectId}`, 'true');
     };
@@ -270,12 +270,13 @@ useEffect(() => {
     <div className="card relative overflow-hidden my-4">
       <div className={`ribbon ${colorMaker(props.state)}`}>{props.state}</div>
       <Link href={`/project-details/${props.address}`}>
-        <h1 className="font-sans text-xl text-gray font-semibold hover:text-sky-500 hover:cursor-pointer">{props.title}</h1>
+        <h1 className="font-sans text-2xl text-gray font-semibold hover:text-sky-500 hover:cursor-pointer">{props.title}</h1>
       </Link>
       <p className="text-md font-bold font-sans text-gray">Creation Time</p>
       <p className="text-sm font-bold font-sans text-gray-600 ">{creationTimeMap[props.address]}</p>
-<div className="font-sans text-md font-bold text-gray">Latest Block Timestamp</div>
-<div className="font-sans text-sm font-bold text-gray-600">{latestBlockTimestamp ? new Date(latestBlockTimestamp * 1000).toLocaleString() : 'Loading...'}</div>
+      <div className="font-sans text-md font-bold text-gray">Latest Block Timestamp</div>
+      <div className="font-sans text-sm font-bold text-gray-600">{latestBlockTimestamp ? new Date(latestBlockTimestamp * 1000).toLocaleString() : 'Loading...'}</div>
+      <p className="text-md font-bold font-sans text-gray">Description</p>
       <p className="font-sans text-sm text-stone-800 tracking-tight">{props.description}</p>
       <div className="flex flex-col lg:flex-row">
         <div className="inner-card my-6 w-full lg:w-3/6">

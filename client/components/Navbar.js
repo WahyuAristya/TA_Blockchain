@@ -7,6 +7,7 @@ import { ethToIdrConverter } from '../helper/helper';
 import authWrapper from "../helper/authWrapper";
 import Loader from "../components/Loader";
 import { darkTheme, ConnectWallet} from "@thirdweb-dev/react";
+import { ExternalLinkIcon } from '@heroicons/react/outline'; // Import icon library
 
 const Navbar = () => {
 
@@ -53,6 +54,11 @@ const Navbar = () => {
                 <div className="flex space-x-4">
                     <Link href="/dashboard"  ><span className={`${router.pathname === "/dashboard"?"bg-[#F7C984]":""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay`}>Dashboard</span></Link>
                     <Link href="/my-contributions"><span className={`${router.pathname === "/my-contributions"?"bg-[#F7C984]":""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay`}>My contribution</span></Link>
+                    <Link href="https://sepolia.etherscan.io/address/0xcE7A4D7eC29B09b81004EE886Fd372d37C7404AE" passHref>
+                        <a target="_blank" rel="noopener noreferrer" className={`${router.pathname === "https://sepolia.etherscan.io/address/0xcE7A4D7eC29B09b81004EE886Fd372d37C7404AE" ? "bg-[#F7C984]" : ""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay flex items-center`}>
+                            View Etherscan <ExternalLinkIcon className="h-4 w-4 inline-block ml-1 text-gray-400" />
+                        </a>
+                    </Link>
                 </div>
                 </div>
                 
