@@ -7,15 +7,15 @@ import { groupContributionByProject, groupContributors, projectDataFormatter, st
 import { useAddress } from '@thirdweb-dev/react';
 
 // const crowdFundingContractAddress = "0x0c5F24E0bFc35daF686B3Ab14ddcC1B615aD145c"; //deploy testnet sepolia
-// const crowdFundingContractAddress = "0xE5032a7561a0280F0c548b7467E498eb41452BB8"; //deploy testnet sepolia thirdweb
+const crowdFundingContractAddress = "0xcE7A4D7eC29B09b81004EE886Fd372d37C7404AE"; //deploy testnet sepolia thirdweb
 
-const crowdFundingContractAddress = "0x317c7F9Ae321F97B5304Fe7db4a57b91c2080974";
+// const crowdFundingContractAddress = "0x317c7F9Ae321F97B5304Fe7db4a57b91c2080974";
 
 //Load web3
 export const loadWeb3 = async (dispatch) => {
-  // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/61088a0a8b6d4a0b9db34c8957e3c2d5");
+  const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/61088a0a8b6d4a0b9db34c8957e3c2d5");
   // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/");
-  const web3 = new Web3(Web3.givenProvider || "https://localhost:7545");
+  // const web3 = new Web3(Web3.givenProvider || "https://localhost:7545");
   dispatch(actions.web3Loaded(web3));
   return web3;
 };

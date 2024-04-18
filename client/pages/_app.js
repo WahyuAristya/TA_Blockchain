@@ -154,7 +154,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <ToastContainer/>
       <ThirdwebProvider
-				activeChain="localhost"
+				activeChain="sepolia"
         clientId="7e19a827c2ddf24b50144bf6a906cfc5"
         autoConnect={true}
         supportedWallets={[
