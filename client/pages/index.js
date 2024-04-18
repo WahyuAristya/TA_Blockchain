@@ -120,7 +120,7 @@ export default function Home() {
       <div className="flex justify-center w-full items-center" style={{padding: '0 100px'}}>
         <div className="flex flex-col w-full lg:w-2/3 px-8 lg:px-0" >
           <h1 className="text-5xl font-bold mb-4 lg:text-5xl" style={{lineHeight:'1.1'}}>"Your Gateway to the New Decentralized Crowdfunding World"</h1>
-          <p className="text-2xl ,t-3">Welcome to the Crowdfunding Donation Web</p>
+          <p className="text-2xl ,t-3">Welcome to the Crowdfunding Donation Web3</p>
           <div className="mt-8">
             <ConnectWallet
               theme={darkTheme({
