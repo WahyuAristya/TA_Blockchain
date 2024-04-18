@@ -86,7 +86,8 @@ const WithdrawRequestCard = ({ props, withdrawReq, setWithdrawReq, contractAddre
         </div>
         <div className="inner-card my-6 w-full lg:w-3/5">
           <p className="text-md font-bold font-sans text-gray">Recipient address</p>
-          <p className="text-sm font-bold font-sans text-gray-600 w-40 truncate ">{props.reciptant}</p>
+          <p className="text-sm font-bold font-sans text-gray-600">{props.reciptant}</p>
+          <p className="text-sm text-red-600"> <span className="font-bold">Note : </span> Only Trustees Can Vote</p>
           {account === props.reciptant ? (
             props.status === 'Completed' ? (
               <button className="withdraw-button" disabled>
