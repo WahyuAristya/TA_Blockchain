@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import * as actions from "../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
-import { contribute, createWithdrawRequest, UpdateProjectState } from '../redux/interactions';
+import { contribute, createWithdrawRequest, getTrustees } from '../redux/interactions';
 import { etherToWei, ethToIdrConverter } from '../helper/helper';
 import { toastSuccess, toastError } from '../helper/toastMessage';
+import { ExclamationIcon } from '@heroicons/react/outline';
 
 const colorMaker = (state) => {
   if (state === 'Fundraising') {
@@ -16,7 +17,7 @@ const colorMaker = (state) => {
   }
 };
 
-const FundRiserCard = ({ props, pushWithdrawRequests }) => {
+const FundRiserCard = ({ props, pushWithdrawRequests}) => {
   const [btnLoader, setBtnLoader] = useState(false);
   const [amount, setAmount] = useState(0);
   const [goalAmountIdrMap, setGoalAmountIdrMap] = useState({});
@@ -28,65 +29,8 @@ const FundRiserCard = ({ props, pushWithdrawRequests }) => {
   const [withdrawRequested, setWithdrawRequested] = useState(false);
   const [creationTimeMap, setCreationTimeMap] = useState({});
   const [latestBlockTimestamp, setLatestBlockTimestamp] = useState(null);
+  const [trustees, setTrustees] = useState([]);
 
-
-  // const contributeAmount = async (projectId, minContribution) => {
-  //   if (amount < minContribution) {
-  //     toastError(`Minimum contribution amount is ${minContribution}`);
-  //     return;
-  //   }
-  
-  //   setBtnLoader(projectId);
-  //   const contributionAmount = etherToWei(amount);
-  
-  //   try {
-  //     const block = await web3.eth.getBlock('latest');
-  //     const currentTime = block.timestamp;
-  
-  //     const data = {
-  //       contractAddress: projectId,
-  //       amount: contributionAmount,
-  //       account: account,
-  //       timestamp: props.deadline, // Adding block timestamp here
-  //     };
-  //     // console.log(data)
-  
-  //     const onSuccess = () => {
-  //       setBtnLoader(false);
-  //       setAmount(0);
-  //       toastSuccess(`Successfully contributed ${amount} ETH`);
-  //     };
-  
-  //     const onError = (message) => {
-  //       setBtnLoader(false);
-  //       toastError(message);
-        
-  //     };
-
-  //     // const splittedDate = props.deadline.split("/")
-  //     // const deadlinePassed = new Date(splittedDate[2],splittedDate[1]-1,splittedDate[0], 23, 59) < new Date();
-      
-  //     // if (!deadlinePassed) {
-  //     //   dispatch(actions.updateProjectState({ projectId, state: 'Expired' } ));
-  //     //   props.state = 'Expired';
-  //     //   onError("Deadline has been passed")
-  //     // } else {
-  //     //   contribute(crowdFundingContract,data,dispatch,() => {
-  //     //     onSuccess();
-  //     //     const deadlinePassed = new Date(props.deadline * 1000) < new Date();
-  //     //     if (deadlinePassed) {
-  //     //       dispatch({ UpdateProjectState, payload: { projectId, state: 'Expired' } });
-  //     //     }
-  //     //   },
-  //     //   onError
-  //     // );
-  //     // }
-  //   } catch (error) {
-  //     console.error('Error getting block timestamp:', error);
-  //     toastError('Error getting block timestamp');
-  //     setBtnLoader(false);
-  //   }
-  // };
 
   const contributeAmount = (projectId,minContribution) =>{
 
@@ -127,7 +71,21 @@ const getLatestBlockTimestamp = async () => {
     return null;
   }
 };
-  
+
+useEffect(() => {
+  const fetchTrustees = async () => {
+    try {
+      const trusteesData = await getTrustees(web3, props.address);
+      setTrustees(trusteesData);
+    } catch (error) {
+      console.error('Error fetching trustees:', error);
+    }
+  };
+
+  if (web3 && props.address) {
+    fetchTrustees();
+  }
+}, [web3, props.address]);
 
 useEffect(() => {
   const fetchBlockTimestamp = async () => {
@@ -191,8 +149,6 @@ useEffect(() => {
 }, []);
 
 
-
-
   useEffect(() => {
     const convertGoalAmountToIdr = async () => {
       try {
@@ -225,8 +181,6 @@ useEffect(() => {
     };
     convertContractBalanceToIdr();
   }, [props.contractBalance, props.address]);
-
-
 
 
   const requestForWithdraw = (projectId) => {
@@ -266,17 +220,18 @@ useEffect(() => {
     setWithdrawRequested(hasWithdrawn === 'true');
   }, [props.address]);
 
+
   return (
     <div className="card relative overflow-hidden my-4">
       <div className={`ribbon ${colorMaker(props.state)}`}>{props.state}</div>
       <Link href={`/project-details/${props.address}`}>
-        <h1 className="font-sans text-2xl text-gray font-semibold hover:text-sky-500 hover:cursor-pointer">{props.title}</h1>
+        <h1 className="font-sans text-2xl text-gray font-bold hover:text-sky-500 hover:cursor-pointer border-b border-solid border-gray-200 pb-2">{props.title}</h1>
       </Link>
-      <p className="text-md font-bold font-sans text-gray">Creation Time</p>
-      <p className="text-sm font-bold font-sans text-gray-600 ">{creationTimeMap[props.address]}</p>
-      <div className="font-sans text-md font-bold text-gray">Latest Block Timestamp</div>
-      <div className="font-sans text-sm font-bold text-gray-600">{latestBlockTimestamp ? new Date(latestBlockTimestamp * 1000).toLocaleString() : 'Loading...'}</div>
-      <p className="text-md font-bold font-sans text-gray">Description</p>
+      <p className="text-md font-semibold font-sans text-gray mt-2">Creation Time</p>
+      <p className="font-sans text-sm text-stone-800 tracking-tight">{creationTimeMap[props.address]}</p>
+      <div className="text-md font-semibold font-sans text-gray">Latest Block Timestamp</div>
+      <div className="font-sans text-sm text-stone-800 tracking-tight">{latestBlockTimestamp ? new Date(latestBlockTimestamp * 1000).toLocaleString() : 'Loading...'}</div>
+      <p className="text-md font-semibold font-sans text-gray">Description</p>
       <p className="font-sans text-sm text-stone-800 tracking-tight">{props.description}</p>
       <div className="flex flex-col lg:flex-row">
         <div className="inner-card my-6 w-full lg:w-3/6">
@@ -296,17 +251,26 @@ useEffect(() => {
         <div className="inner-card my-6 w-full lg:w-3/5">
           {props.state !== 'Successful' && props.state !== 'Expired' ? (
             <>
-              <label className="text-sm text-gray-700 font-semibold">Contribution amount :</label>
-              <div className="flex flex-row">
-                <input type="number" placeholder="Type here" value={amount} onChange={(e) => setAmount(e.target.value)} disabled={btnLoader === props.address} className="input rounded-l-md" />
-                <button className="button" onClick={() => contributeAmount(props.address, props.minContribution)} disabled={btnLoader === props.address}>
-                  {btnLoader === props.address ? 'Loading...' : 'Contribute'}
-                </button>
-              </div>
-              <p className="text-sm text-red-600"> <span className="font-bold">NOTE : </span> Minimum contribution is {props.minContribution} ETH </p>
-              <p className="text-md font-bold font-sans text-gray">Contract balance</p>
+              {/* {(!trustees.includes(account)) ? (
+                <> */}
+                  <label className="text-sm text-gray-700 font-semibold">Contribution amount :</label>
+                  <div className="flex flex-row">
+                    <input type="number" placeholder="Type here" value={amount} onChange={(e) => setAmount(e.target.value)} disabled={btnLoader === props.address} className="input rounded-l-md" />
+                    <button className="button" onClick={() => contributeAmount(props.address, props.minContribution)} disabled={btnLoader === props.address}>
+                      {btnLoader === props.address ? 'Loading...' : 'Contribute'}
+                    </button>
+                  </div>
+                  <p className="text-sm text-red-600"> <span className="font-bold">NOTE : </span> Minimum contribution is {props.minContribution} ETH </p>
+                {/* </>
+              ) : (
+                <div className="flex flex-col items-center justify-center">
+                  <ExclamationIcon className="h-7 w-7 mr-1 text-red-600" />
+                  <p className="text-red-600 font-bold text-center max-w-[300px]">Can't contribute beacuse using a Trustees Address Wallet</p>
+                </div>
+              )} */}
+              <p className="text-md font-bold font-sans text-gray mt-2">Project balance</p>
               <p className="text-sm font-bold font-sans text-gray-600 ">{props.contractBalance} ETH </p>
-              <p className="text-md font-bold font-sans text-gray">Contract Balance in IDR</p>
+              <p className="text-md font-bold font-sans text-gray">Project Balance in IDR</p>
         {contractBalanceIdrMap[props.address] !== undefined && contractBalanceIdrMap[props.address] !== null ? (
           <p className="text-sm font-bold font-sans text-gray-600 ">Rp.{contractBalanceIdrMap[props.address].toLocaleString()} </p>
         ) : (
@@ -315,9 +279,9 @@ useEffect(() => {
             </>
           ) : (
             <>
-              <p className="text-md font-bold font-sans text-gray">Contract balance</p>
+              <p className="text-md font-bold font-sans text-gray">Project balance</p>
               <p className="text-sm font-bold font-sans text-gray-600 ">{props.contractBalance} ETH </p>
-                            <p className="text-md font-bold font-sans text-gray">Contract Balance in IDR</p>
+                            <p className="text-md font-bold font-sans text-gray">Project Balance in IDR</p>
         {contractBalanceIdrMap[props.address] !== undefined && contractBalanceIdrMap[props.address] !== null ? (
           <p className="text-sm font-bold font-sans text-gray-600 ">Rp.{contractBalanceIdrMap[props.address].toLocaleString()} </p>
         ) : (
@@ -349,8 +313,8 @@ useEffect(() => {
       </div>
       {props.state !== 'Successful' && props.state !== 'Expired'? (
         <div className="w-full bg-gray-200 rounded-full">
-          <div className="progress" style={{ width: `${props.progress}%` }}> {props.progress}% </div>
-        </div>
+        <div className="progress" style={{ width: `${Math.min(props.progress, 100)}%` }}>{Math.min(props.progress, 100)}%</div>
+      </div>
       ) : (
         ''
       )}

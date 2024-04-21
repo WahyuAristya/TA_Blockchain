@@ -21,6 +21,7 @@ const ProjectDetails = () => {
   const [withdrawReq, setWithdrawReq] = useState(null)
   const connectionStatus = useConnectionStatus();
 
+
   useEffect(() => {
     if(id){
 
@@ -82,7 +83,7 @@ const ProjectDetails = () => {
                   <h1 className="font-sans text-xl text-gray font-semibold">Withdraw requests</h1>
                   {
                     withdrawReq.map((data,i)=>(
-                      <WithdrawRequestCard props={data} withdrawReq={withdrawReq} setWithdrawReq={setWithdrawReq} contractAddress={id} key={i}/>
+                      <WithdrawRequestCard props={data} withdrawReq={withdrawReq} setWithdrawReq={setWithdrawReq} contractAddress={id} contributors={contributors} key={i}/>
                     ))
                   }
                   
@@ -105,7 +106,7 @@ const ProjectDetails = () => {
                       <div className='p-6 w-8 h-8 mx-auto my-auto rounded-md bg-slate-300 '></div>
                     </div>
                     <div className='lg:w-4/5'>
-                        <p className='text-md font-bold text-gray-800 w-40 truncate '>{data.contributor}</p>
+                        <p className='text-md font-bold text-gray-800 w-40 '>{data.contributor}</p>
                         <p className='text-sm font-bold text-gray-500'>{data.amount} ETH</p>
                     </div>
                 </div>

@@ -1,22 +1,19 @@
 // FundRiserForm.js
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { startFundRaising } from '../redux/interactions';
+import { startFundRaising} from '../redux/interactions';
 import { useDispatch, useSelector } from 'react-redux';
 import { etherToWei, ethToIdrConverter, unixToDate } from '../helper/helper';
 import { toastSuccess, toastError } from '../helper/toastMessage';
-import { maxUint256 } from 'viem';
+
 
 const FundRiserForm = () => {
   const crowdFundingContract = useSelector(state => state.fundingReducer.contract);
   const account = useSelector(state => state.web3Reducer.account);
   const web3 = useSelector(state => state.web3Reducer.connection);
-
   const [convertedTargetedAmount, setConvertedTargetedAmount] = useState(null);
   const [convertedMinimumAmount, setConvertedMinimumAmount] = useState(null);
-
   const dispatch = useDispatch();
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [targetedContributionAmount, setTargetedContributionAmount] = useState('');
@@ -24,12 +21,25 @@ const FundRiserForm = () => {
   const [deadline, setDeadline] = useState('');
   const [btnLoading, setBtnLoading] = useState(false);
 
+
+
   const riseFund = (e) => {
     e.preventDefault();
     const targetedContribution = Number(targetedContributionAmount);
+    const minimumContribution = Number(minimumContributionAmount);
+
+    // if (account === trustees) {
+    //   toastError('You are already a trustee.');
+    //   return;
+    // }
 
     if (targetedContribution <= 0) {
       toastError('Targeted contribution amount should be greater than 0.');
+      return;
+    }
+
+    if (minimumContribution > targetedContribution) {
+      toastError('Minimum contribution amount cannot be greater than targeted contribution amount.');
       return;
     }
 
@@ -72,8 +82,6 @@ const FundRiserForm = () => {
       account: account
     };
 
-    console.log(selectedDate)
-
     startFundRaising(web3, crowdFundingContract, data, onSuccess, onError, dispatch);
   };
 
@@ -103,17 +111,17 @@ const FundRiserForm = () => {
       <form onSubmit={(e) => riseFund(e)}>
         <div className="form-control my-1">
           <label className="text-sm text-gray-700">Title :</label>
-          <input type="text" placeholder="Type here" className="form-control-input border-neutral-400 focus:ring-neutral-200" value={title} onChange={(e) => setTitle(e.target.value)} required />
+          <input type="text" placeholder="Title of Your Project" className="form-control-input border-neutral-400 focus:ring-neutral-200" value={title} onChange={(e) => setTitle(e.target.value)} required />
         </div>
         <div className="form-control my-1">
           <label className="text-sm text-gray-700">Description :</label>
-          <textarea placeholder="Type here" className="form-control-input border-neutral-400 focus:ring-neutral-200" value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
+          <textarea placeholder="Give the details and contact person of Your Project" className="form-control-input border-neutral-400 focus:ring-neutral-200" value={description} onChange={(e) => setDescription(e.target.value)} required rows={3}></textarea>
         </div>
         <div className="form-control my-1">
           <label className="text-sm text-gray-700">Targeted contribution amount :</label>
           <input
             type="number"
-            placeholder="Type here"
+            placeholder="Target amount you want to reach"
             className="form-control-input border-neutral-400 focus:ring-neutral-200"
             value={targetedContributionAmount}
             onChange={(e) => {
@@ -132,7 +140,7 @@ const FundRiserForm = () => {
           <label className="text-sm text-gray-700">Minimum contribution amount :</label>
           <input
             type="number"
-            placeholder="Type here"
+            placeholder="Minimum ETH can be donate"
             className="form-control-input border-neutral-400 focus:ring-neutral-200"
             value={minimumContributionAmount}
             onChange={(e) => {

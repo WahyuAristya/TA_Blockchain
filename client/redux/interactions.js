@@ -7,15 +7,15 @@ import { groupContributionByProject, groupContributors, projectDataFormatter, st
 import { useAddress } from '@thirdweb-dev/react';
 
 // const crowdFundingContractAddress = "0x0c5F24E0bFc35daF686B3Ab14ddcC1B615aD145c"; //deploy testnet sepolia
-const crowdFundingContractAddress = "0xcE7A4D7eC29B09b81004EE886Fd372d37C7404AE"; //deploy testnet sepolia thirdweb
+// const crowdFundingContractAddress = "0xcE7A4D7eC29B09b81004EE886Fd372d37C7404AE"; //deploy testnet sepolia thirdweb
 
-// const crowdFundingContractAddress = "0x317c7F9Ae321F97B5304Fe7db4a57b91c2080974";
+const crowdFundingContractAddress = "0xA780CbdeE333F6Ea7ADeDd67A0a533b04Df2Bc56";
 
 //Load web3
 export const loadWeb3 = async (dispatch) => {
-  const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/61088a0a8b6d4a0b9db34c8957e3c2d5");
+  // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/61088a0a8b6d4a0b9db34c8957e3c2d5");
   // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/");
-  // const web3 = new Web3(Web3.givenProvider || "https://localhost:7545");
+  const web3 = new Web3(Web3.givenProvider || "https://localhost:7545");
   dispatch(actions.web3Loaded(web3));
   return web3;
 };
@@ -32,7 +32,6 @@ export const loadAccount = async (web3, dispatch) => {
   localStorage.setItem("ADDRESS",account)
   // const address = useAddress();
   // console.log(address)
-  console.log(account)
   return account;
   };
 
@@ -111,8 +110,6 @@ export const getAllFunding = async (CrowdFundingContract, web3, dispatch, props)
       const splitDeadline = formattedProjectData.deadline.split('/')
       const deadlinePassed = new Date(splitDeadline[2],splitDeadline[1]-1,splitDeadline[0], 23, 59) < new Date();
 
-      console.log(formattedProjectData.state)
-
       if (deadlinePassed && (formattedProjectData.state !== "Successful")) {
         formattedProjectData.state = 'Expired'
       }
@@ -123,7 +120,6 @@ export const getAllFunding = async (CrowdFundingContract, web3, dispatch, props)
   dispatch(actions.projectContractsLoaded(projectContracts));
   dispatch(actions.projectsLoaded(projects));
 };
-
 
 
 
@@ -189,19 +185,32 @@ export const getAllWithdrawRequest = async (web3,contractAddress,onLoadRequest) 
 }
 
 // Vote for withdraw request
-export const voteWithdrawRequest = async (web3,data,onSuccess,onError) =>{
-  const {contractAddress,reqId,account} = data;
-  var projectConnector = new web3.eth.Contract(Project.abi,contractAddress);
-  await projectConnector.methods.voteWithdrawRequest(reqId).send({from:account})
-  .on('receipt', function(receipt){
-    console.log(receipt)
-    onSuccess()
-  })
-  .on('error', function(error){
-    onError(error.message)
-  })
+export const voteWithdrawRequest = async (web3, data, onSuccess, onError) => {
+  const { contractAddress, reqId, vote, account } = data;
+  var projectConnector = new web3.eth.Contract(Project.abi, contractAddress);
+  
+  // Convert vote to integer: 0 for No, 1 for Yes
+  const voteValue = vote === "No" ? 0 : 1;
 
-}
+  try {
+    await projectConnector.methods.voteWithdrawRequest(reqId, voteValue).send({ from: account });
+    onSuccess();
+  } catch (error) {
+    onError(error.message);
+  }
+};
+
+export const requestRefund = async (web3, data, onSuccess, onError) => {
+  const { contractAddress, account } = data;
+  var projectConnector = new web3.eth.Contract(Project.abi, contractAddress);
+  
+  try {
+    await projectConnector.methods.requestRefund().send({ from: account });
+    onSuccess();
+  } catch (error) {
+    onError(error.message);
+  }
+};
 
 
 // Withdraw requested amount
@@ -231,6 +240,21 @@ export const getMyContributionList = async(crowdFundingContract,account) =>{
   })
   return groupContributionByProject(getContributions);
 }
+
+
+// Function to retrieve trustee addresses
+export const getTrustees = async (web3, contractAddress) => {
+  try {
+    const projectContract = new web3.eth.Contract(Project.abi, contractAddress);
+    const trustees = await projectContract.methods.getTrustees().call();
+    return trustees;
+  } catch (error) {
+    console.error('Error fetching trustees:', error);
+    throw error;
+  }
+};
+
+
 
 
 

@@ -99,14 +99,17 @@ export const groupContributors = (contributions) => {
   return contributorGroup;
 }
 
+
 export const withdrawRequestDataFormatter = (data) =>{
+  const { requestId, noOfVotes, amount, isCompleted, description, reciptent } = data;
+  const status = isCompleted ? "Completed" : (noOfVotes === 5 && noOfVotes.noVotes > noOfVotes.yesVotes ? "Rejected" : "Pending");
   return{
-     requestId:data.requestId,
-     totalVote:data.noOfVotes,
-     amount:weiToEther(data.amount),
-     status:data.isCompleted?"Completed":"Pending",
-     desc:data.description,
-     reciptant:data.reciptent
+     requestId:requestId,
+     totalVote:noOfVotes,
+     amount:weiToEther(amount),
+     status:status,
+     desc:description,
+     reciptant:reciptent
     }
 }
 

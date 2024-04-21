@@ -1,242 +1,4 @@
 //SPDX-License-Identifier: Unlicense
-// pragma solidity ^0.8.0;
-
-
-// // [X] Anyone can contribute
-// // [X] End project if targeted contribution amount reached
-// // [X] Expire project if raised amount not fullfill between deadline
-// //    & return donated amount to all contributor .
-// // [X] Owner need to request contributers for withdraw amount.
-// // [X] Owner can withdraw amount if 50% contributors agree
-
-// contract Project{
-
-//    // Project state
-//     enum State {
-//         Fundraising,
-//         Expired,
-//         Successful
-//     }
-
-//     // Structs
-
-//     struct WithdrawRequest{
-//         string description;
-//         uint256 amount;
-//         uint256 noOfVotes;
-//         mapping(address => bool) voters;
-//         bool isCompleted;
-//         address payable reciptent; 
-//     }
-
-//     // Variables
-//     address payable public creator;
-//     uint256 public minimumContribution;
-//     uint public deadline;
-//     uint256 public targetContribution; // required to reach at least this much amount
-//     uint public completeAt;
-//     uint256 public raisedAmount; // Total raised amount till now
-//     uint256 public noOfContributers;
-//     string public projectTitle;
-//     string public projectDes;
-//     State public state = State.Fundraising; 
-
-//     mapping (address => uint) public contributiors;
-//     mapping (uint256 => WithdrawRequest) public withdrawRequests;
-
-//     uint256 public numOfWithdrawRequests = 0;
-
-//     // Modifiers
-//     modifier isCreator(){
-//         require(msg.sender == creator,'You dont have access to perform this operation !');
-//         _;
-//     }
-
-//     // Events
-//     event Expired(address contributor, State state);
-//     // Event that will be emitted whenever funding will be received
-//     event FundingReceived(address contributor, uint amount, uint currentTotal);
-//     // Event that will be emitted whenever withdraw request created
-//     event WithdrawRequestCreated(
-//         uint256 requestId,
-//         string description,
-//         uint256 amount,
-//         uint256 noOfVotes,
-//         bool isCompleted,
-//         address reciptent
-//     );
-//     // Event that will be emitted whenever contributor vote for withdraw request
-//     event WithdrawVote(address voter, uint totalVote);
-//     // Event that will be emitted whenever contributor vote for withdraw request
-//     event AmountWithdrawSuccessful(
-//         uint256 requestId,
-//         string description,
-//         uint256 amount,
-//         uint256 noOfVotes,
-//         bool isCompleted,
-//         address reciptent
-//     );
-
-
-//     // @dev Create project
-//     // @return null
-
-//    constructor(
-//        address _creator,
-//        uint256 _minimumContribution,
-//        uint _deadline,
-//        uint256 _targetContribution,
-//        string memory _projectTitle,
-//        string memory _projectDes
-//    ) {
-//        creator = payable(_creator);
-//        minimumContribution = _minimumContribution;
-//        deadline = _deadline;
-//        targetContribution = _targetContribution;
-//        projectTitle = _projectTitle;
-//        projectDes = _projectDes;
-//        raisedAmount = 0;
-//    }
-
-
-//    // @dev complete or expire funding
-//     // @return null
-    
-//     uint256 blockTimestampMilliseconds = block.timestamp * 1000;
-
-
-//     function checkFundingCompleteOrExpire() internal {
-//         if(raisedAmount >= targetContribution){
-//             state = State.Successful; 
-//         }else if(block.timestamp > deadline){
-//             state = State.Expired; 
-//         }
-//         completeAt = block.timestamp;
-//     }
-
-//     function setStateExpired() public {
-//         state = State.Expired;
-//     }
-
-
-//     // @dev Anyone can contribute
-//     // @return null
-
-
-// function contribute(address _contributor) public payable {
-//     // require(state == State.Fundraising, "Project is not in fundraising state");
-//     // require(block.timestamp * 1000 > deadline, "Deadline lewat");
-//     if (state != State.Expired) {
-//         if (contributiors[_contributor] == 0){
-//                 noOfContributers++;
-//             }
-//         contributiors[_contributor] += msg.value;
-//         raisedAmount += msg.value;
-//         emit FundingReceived(_contributor,msg.value,raisedAmount);
-//         checkFundingCompleteOrExpire();
-//     }
-    
-// }
-
-//     // @dev Get contract current balance
-//     // @return uint 
-
-//     function getContractBalance() public view returns(uint256){
-//         return address(this).balance;
-//     }
-
-
-//     // @dev Request contributor for withdraw amount
-//     // @return null
-   
-//     function createWithdrawRequest(string memory _description,uint256 _amount,address payable _reciptent) public isCreator() {
-//         // require(state == State.Expired || state == State.Successful, "Project is still fundraising");
-//         WithdrawRequest storage newRequest = withdrawRequests[numOfWithdrawRequests];
-//         numOfWithdrawRequests++;
-
-//         newRequest.description = _description;
-//         newRequest.amount = _amount;
-//         newRequest.noOfVotes = 0;
-//         newRequest.isCompleted = false;
-//         newRequest.reciptent = _reciptent;
-        
-
-//         emit WithdrawRequestCreated(numOfWithdrawRequests,_description, _amount,0,false,_reciptent );
-//         checkFundingCompleteOrExpire();
-//     }
-
-
-
-
-
-
-
-//     // @dev contributors can vote for withdraw request
-//     // @return null
-
-//     function voteWithdrawRequest(uint256 _requestId) public {
-//         require(contributiors[msg.sender] > 0,'Only contributor can vote !');
-//         WithdrawRequest storage requestDetails = withdrawRequests[_requestId];
-//         require(requestDetails.voters[msg.sender] == false,'You already voted !');
-//         requestDetails.voters[msg.sender] = true;
-//         requestDetails.noOfVotes += 1;
-//         emit WithdrawVote(msg.sender,requestDetails.noOfVotes);
-//     }
-
-//     // @dev Owner can withdraw requested amount
-//     // @return null
-
-//     function withdrawRequestedAmount(uint256 _requestId) public isCreator(){
-//         WithdrawRequest storage requestDetails = withdrawRequests[_requestId];
-//         require(requestDetails.isCompleted == false,'Request already completed');
-//         // Tentukan jumlah minimum suara yang diperlukan sebagai 50% + 1 dari jumlah kontributor
-//         uint256 minVotesRequired = (noOfContributers / 2) + 1;
-//         require(requestDetails.noOfVotes >= minVotesRequired, 'Insufficient votes for this request');
-
-//         // Lakukan transfer dana
-//         requestDetails.reciptent.transfer(requestDetails.amount);
-//         requestDetails.isCompleted = true;
-
-
-//         emit AmountWithdrawSuccessful(
-//             _requestId,
-//             requestDetails.description,
-//             requestDetails.amount,
-//             requestDetails.noOfVotes,
-//             true,
-//             requestDetails.reciptent
-//         );
-
-//     }
-
-//     // @dev Get contract details
-//     // @return all the project's details
-
-//     function getProjectDetails() public view returns(
-//     address payable projectStarter,
-//     uint256 minContribution,
-//     uint256  projectDeadline,
-//     uint256 goalAmount, 
-//     uint completedTime,
-//     uint256 currentAmount, 
-//     string memory title,
-//     string memory desc,
-//     State currentState,
-//     uint256 balance
-//     ){
-//         projectStarter=creator;
-//         minContribution=minimumContribution;
-//         projectDeadline=deadline;
-//         goalAmount=targetContribution;
-//         completedTime=completeAt;
-//         currentAmount=raisedAmount;
-//         title=projectTitle;
-//         desc=projectDes;
-//         currentState=state;
-//         balance=address(this).balance;
-//     }
-
-// }
 
 pragma solidity ^0.8.0;
 
@@ -251,7 +13,8 @@ contract Project {
     struct WithdrawRequest {
         string description;
         uint256 amount;
-        uint256 noOfVotes;
+        uint256 yesVotes;
+        uint256 noVotes;
         mapping(address => bool) voters;
         bool isCompleted;
         address payable reciptent;
@@ -295,10 +58,10 @@ contract Project {
     // Events
     event Expired(address contributor, State state);
     event FundingReceived(address contributor, uint256 amount, uint256 currentTotal);
-    event WithdrawRequestCreated(uint256 requestId, string description, uint256 amount, uint256 noOfVotes, bool isCompleted, address reciptent);
+    event WithdrawRequestCreated(uint256 requestId, string description, uint256 amount, uint256 yesVotes, uint256 noVotes, bool isCompleted, address reciptent);
     event WithdrawVote(address voter, uint256 totalVote);
-    event AmountWithdrawSuccessful(uint256 requestId, string description, uint256 amount, uint256 noOfVotes, bool isCompleted, address reciptent);
-    event TrusteesAdded(address[] trustees);
+    event AmountWithdrawSuccessful(uint256 requestId, string description, uint256 amount, uint256 yesVotes, uint256 noVotes, bool isCompleted, address reciptent);
+    event Refund(address contributor, uint256 amount);
 
     constructor(
         address _creator,
@@ -357,32 +120,63 @@ contract Project {
 
         newRequest.description = _description;
         newRequest.amount = _amount;
-        newRequest.noOfVotes = 0;
+        newRequest.yesVotes = 0;
+        newRequest.noVotes = 0;
         newRequest.isCompleted = false;
         newRequest.reciptent = _reciptent;
 
-        emit WithdrawRequestCreated(numOfWithdrawRequests, _description, _amount, 0, false, _reciptent);
+        emit WithdrawRequestCreated(numOfWithdrawRequests, _description, _amount, 0, 0, false, _reciptent);
         checkFundingCompleteOrExpire();
     }
 
-    function voteWithdrawRequest(uint256 _requestId) public onlyTrustee() {
+    function voteWithdrawRequest(uint256 _requestId, bool _vote) public onlyTrustee() {
         WithdrawRequest storage requestDetails = withdrawRequests[_requestId];
         require(!requestDetails.voters[msg.sender], 'You already voted!');
+        
+        if (_vote) {
+            requestDetails.yesVotes++;
+        } else {
+            requestDetails.noVotes++;
+        }
+        
         requestDetails.voters[msg.sender] = true;
-        requestDetails.noOfVotes += 1;
-        emit WithdrawVote(msg.sender, requestDetails.noOfVotes);
+        emit WithdrawVote(msg.sender, requestDetails.yesVotes + requestDetails.noVotes);
     }
 
     function withdrawRequestedAmount(uint256 _requestId) public isCreator() {
         WithdrawRequest storage requestDetails = withdrawRequests[_requestId];
         require(requestDetails.isCompleted == false,'Request already completed');
+        
         uint256 minVotesRequired = 3; // Set minimum votes required to 3
-        require(requestDetails.noOfVotes >= minVotesRequired, 'Insufficient votes for this request');
+        require(allTrusteesVoted(_requestId), 'Not all trustees have voted');
+        
+        if (requestDetails.yesVotes >= minVotesRequired) {
+            requestDetails.reciptent.transfer(requestDetails.amount);
+            requestDetails.isCompleted = true;
+            emit AmountWithdrawSuccessful(_requestId, requestDetails.description, requestDetails.amount, requestDetails.yesVotes, requestDetails.noVotes, true, requestDetails.reciptent);
+        } else if (requestDetails.noVotes > requestDetails.yesVotes) {
+            requestRefund();
+            requestDetails.isCompleted = true;
+            emit AmountWithdrawSuccessful(_requestId, requestDetails.description, requestDetails.amount, requestDetails.yesVotes, requestDetails.noVotes, false, requestDetails.reciptent);
+        }
+    }
 
-        requestDetails.reciptent.transfer(requestDetails.amount);
-        requestDetails.isCompleted = true;
+    function allTrusteesVoted(uint256 _requestId) internal view returns (bool) {
+        WithdrawRequest storage requestDetails = withdrawRequests[_requestId];
+        for (uint256 i = 0; i < trustees.length; i++) {
+            if (!requestDetails.voters[trustees[i]]) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-        emit AmountWithdrawSuccessful(_requestId, requestDetails.description, requestDetails.amount, requestDetails.noOfVotes, true, requestDetails.reciptent);
+    function requestRefund() public returns(bool) {
+        require(contributors[msg.sender] > 0, 'You dont have any contributed amount!');
+        address payable user = payable(msg.sender);
+        user.transfer(contributors[msg.sender]);
+        contributors[msg.sender] = 0;
+        return true;
     }
 
     function getProjectDetails() public view returns (
@@ -411,6 +205,7 @@ contract Project {
 
     // Function to retrieve trustee addresses
     function getTrustees() public view returns (address[] memory) {
+        
         return trustees;
     }
 }

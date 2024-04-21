@@ -10,7 +10,6 @@ import { useConnectionStatus, ConnectWallet  } from "@thirdweb-dev/react";
 const Dashboard = () => {
   const projectsList = useSelector(state=>state.projectReducer.projects)
   const connectionStatus = useConnectionStatus();
-  console.log(connectionStatus)
   const router = useRouter();
 
 
