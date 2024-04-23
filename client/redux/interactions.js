@@ -6,16 +6,16 @@ import Project from '../artifacts/contracts/Project.sol/Project.json'
 import { groupContributionByProject, groupContributors, projectDataFormatter, state, withdrawRequestDataFormatter} from "../helper/helper";
 import { useAddress } from '@thirdweb-dev/react';
 
-// const crowdFundingContractAddress = "0x0c5F24E0bFc35daF686B3Ab14ddcC1B615aD145c"; //deploy testnet sepolia
-// const crowdFundingContractAddress = "0xcE7A4D7eC29B09b81004EE886Fd372d37C7404AE"; //deploy testnet sepolia thirdweb
 
-const crowdFundingContractAddress = "0xb63923cB06C1320481E5c97550486F8a89660E2b";
+const crowdFundingContractAddress = "0x33A8497236c7417582E6aBa98b6b0A12E251f80c"; //deploy testnet sepolia thirdweb
+
+// const crowdFundingContractAddress = "0xb63923cB06C1320481E5c97550486F8a89660E2b";
 
 //Load web3
 export const loadWeb3 = async (dispatch) => {
-  // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/61088a0a8b6d4a0b9db34c8957e3c2d5");
+  const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/61088a0a8b6d4a0b9db34c8957e3c2d5");
   // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/");
-  const web3 = new Web3(Web3.givenProvider || "https://localhost:7545");
+  // const web3 = new Web3(Web3.givenProvider || "https://localhost:7545");
   dispatch(actions.web3Loaded(web3));
   return web3;
 };

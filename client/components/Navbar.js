@@ -54,7 +54,7 @@ const Navbar = () => {
                 <div className="flex space-x-4">
                     <Link href="/dashboard"  ><span className={`${router.pathname === "/dashboard"?"bg-[#F7C984]":""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay`}>Dashboard</span></Link>
                     <Link href="/my-contributions"><span className={`${router.pathname === "/my-contributions"?"bg-[#F7C984]":""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay`}>My contribution</span></Link>
-                    <Link href="https://sepolia.etherscan.io/address/0xcE7A4D7eC29B09b81004EE886Fd372d37C7404AE" passHref>
+                    <Link href="https://sepolia.etherscan.io/address/0x33A8497236c7417582E6aBa98b6b0A12E251f80c" passHref>
                         <a target="_blank" rel="noopener noreferrer" className={`${router.pathname === "https://sepolia.etherscan.io/address/0xcE7A4D7eC29B09b81004EE886Fd372d37C7404AE" ? "bg-[#F7C984]" : ""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay flex items-center`}>
                             View Etherscan <ExternalLinkIcon className="h-4 w-4 inline-block ml-1 text-gray-400" />
                         </a>

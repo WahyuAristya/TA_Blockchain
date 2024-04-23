@@ -307,6 +307,9 @@ useEffect(() => {
               ) : (
                 ''
               )}
+              {withdrawRequested && (
+                <p className="text-md text-cyan-600 font-bold font-sans text-center mt-4">Withdraw request has been made by creator</p>
+              )}
             </>
           )}
         </div>
@@ -319,7 +322,6 @@ useEffect(() => {
         ''
       )}
     </div>
-    
   );
 };
 
