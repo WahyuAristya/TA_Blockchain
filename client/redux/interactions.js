@@ -9,7 +9,7 @@ import { useAddress } from '@thirdweb-dev/react';
 // const crowdFundingContractAddress = "0x0c5F24E0bFc35daF686B3Ab14ddcC1B615aD145c"; //deploy testnet sepolia
 // const crowdFundingContractAddress = "0xcE7A4D7eC29B09b81004EE886Fd372d37C7404AE"; //deploy testnet sepolia thirdweb
 
-const crowdFundingContractAddress = "0xA780CbdeE333F6Ea7ADeDd67A0a533b04Df2Bc56";
+const crowdFundingContractAddress = "0xb63923cB06C1320481E5c97550486F8a89660E2b";
 
 //Load web3
 export const loadWeb3 = async (dispatch) => {
@@ -48,6 +48,7 @@ export const loadCrowdFundingContract = async(web3,dispatch) =>{
 // Start fund raising project
 export const startFundRaising = async(web3,CrowdFundingContract,data,onSuccess,onError,dispatch) =>{
   const {minimumContribution,deadline,targetContribution,projectTitle,projectDesc,account} = data;
+
 
   await CrowdFundingContract.methods.createProject(minimumContribution,deadline,targetContribution,projectTitle,projectDesc).send({from:account})
   .on('receipt', function(receipt){
@@ -253,8 +254,3 @@ export const getTrustees = async (web3, contractAddress) => {
     throw error;
   }
 };
-
-
-
-
-

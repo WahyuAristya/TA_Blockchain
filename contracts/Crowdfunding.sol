@@ -42,6 +42,7 @@ event ContributionReceived(
  ) public {
 
    deadline = deadline;
+   
 
    Project newProject = new Project(msg.sender, minimumContribution,deadline,targetContribution,projectTitle,projectDesc);
    projects.push(newProject);

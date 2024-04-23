@@ -294,13 +294,13 @@ useEffect(() => {
                       <label className="text-sm text-gray-700 font-semibold">Withdraw request :</label>
                       <div className="flex flex-row">
                         <button className="withdraw-button" onClick={() => requestForWithdraw(props.address)} disabled={btnLoader === props.address}>
-                          {btnLoader === props.address ? 'Loading...' : 'Withdraw'}
+                          {btnLoader === props.address ? 'Loading...' : 'Withdraw Request'}
                         </button>
                       </div>
                     </>
                   ) : (
                     <div className="text-center mt-4">
-                      <p className="text-md font-bold font-sans text-gray">No balance available for withdrawal</p>
+                      <p className="text-sm text-red-600">No balance available for withdrawal</p>
                     </div>
                   )}
                 </>

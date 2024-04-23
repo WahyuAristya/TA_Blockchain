@@ -1,7 +1,7 @@
 // FundRiserForm.js
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { startFundRaising} from '../redux/interactions';
+import { startFundRaising, getTrustees} from '../redux/interactions';
 import { useDispatch, useSelector } from 'react-redux';
 import { etherToWei, ethToIdrConverter, unixToDate } from '../helper/helper';
 import { toastSuccess, toastError } from '../helper/toastMessage';
@@ -20,7 +20,6 @@ const FundRiserForm = () => {
   const [minimumContributionAmount, setMinimumContributionAmount] = useState('');
   const [deadline, setDeadline] = useState('');
   const [btnLoading, setBtnLoading] = useState(false);
-
 
 
   const riseFund = (e) => {

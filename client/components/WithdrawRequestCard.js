@@ -26,8 +26,8 @@ const WithdrawRequestCard = ({ props, withdrawReq, setWithdrawReq, contractAddre
   const [hasVoted, setHasVoted] = useState(false);
   const [trustees, setTrustees] = useState([]);
   const [hasRefund, setHasRefund] = useState(false);
-  const currentContributorAddress = props.contributor;
-  const isContributor = contributors.some(contributor => contributor.contributor === currentContributorAddress);
+  // const isContributor = contributors.some(contributor => contributor.contributor === currentContributorAddress);
+
 
   
   useEffect(() => {
@@ -131,24 +131,31 @@ const WithdrawRequestCard = ({ props, withdrawReq, setWithdrawReq, contractAddre
 
   useEffect(() => {
     // Memeriksa status refund dari localStorage saat komponen dimuat
-    const storedRefundStatus = localStorage.getItem(`refund_${contractAddress}_${props.requestId}`);
+    const storedRefundStatus = localStorage.getItem(`refund_${contractAddress}_${props.requestId}_${account}`);
     setHasRefund(storedRefundStatus === 'true');
-  }, [contractAddress, props.requestId]); // Efek dijalankan kembali saat ada perubahan pada contractAddress atau props.requestId
+  }, [contractAddress, props.requestId, account]); // Efek dijalankan kembali saat ada perubahan pada contractAddress atau props.requestId
   
-  const handleRefund = () => {
-    if (!contributors.includes(account)) {
-      toastError("You cannot make a refund because you are not a contributor of this project.");
-      return;
-    }
+
+  const handleRefund = () => { 
     setBtnLoader(true);
     const data = {
       contractAddress: contractAddress,
       account: account,
     };
+
+  // Memeriksa apakah pengguna adalah kontributor dan belum melakukan refund sebelumnya
+  const hasRefundKey = `refund_${contractAddress}_${props.requestId}_${account}`;
+  const hasRefunded = localStorage.getItem(hasRefundKey);
+  if (!isContributor(account, contributors) || hasRefunded) {
+    setBtnLoader(false);
+    toastError("Can't make a refund because you are not a contributor of this fund.");
+    return; // Stop further execution
+  }
+
     const onSuccess = () => {
       setHasRefund(true);
       setBtnLoader(false);
-      localStorage.setItem(`refund_${contractAddress}_${props.requestId}`, 'true'); // Menyimpan status refund ke localStorage
+      localStorage.setItem(hasRefundKey, 'true');
       console.log("Refund successful, hasRefund:", hasRefund);
     };
     const onError = (message) => {
@@ -157,6 +164,16 @@ const WithdrawRequestCard = ({ props, withdrawReq, setWithdrawReq, contractAddre
       console.log("Refund failed, hasRefund:", hasRefund);
     };
     requestRefund(web3, data, onSuccess, onError);
+  };
+
+  const isContributor = (account, contributors) => {
+    // Loop through contributors array to check if the account is present
+    for (let i = 0; i < contributors.length; i++) {
+      if (contributors[i].contributor === account) {
+        return true; // If the account is found in the contributors list, return true
+      }
+    }
+    return false; // If the account is not found in the contributors list, return false
   };
   
 
@@ -197,6 +214,7 @@ return (
               <div className="flex flex-col items-center justify-center">
                 <ExclamationCircleIcon className="h-8 w-8 mr-1 text-red-600" />
                 <p className="text-red-600 font-bold text-center max-w-[200px]">Withdraw Request has been Rejected by Trustees</p>
+                <p className="text-sm text-red-600">Balance will be refund to all contributors</p>
               </div>
             )}
             {props.status !== 'Rejected' && (
@@ -207,19 +225,22 @@ return (
           </>
         )}
 
-{(props.status !== 'Completed' && (yesVotes + noVotes === 5 && noVotes > yesVotes) && account !== props.reciptant && !trustees.includes(account)) && (
+{(props.status !== 'Completed' && (yesVotes + noVotes === 5 && noVotes > yesVotes) && account !== props.reciptant ) && (
   <>
-    <p className="text-sm text-red-600">Withdraw request rejected by Trustees</p>
     {hasRefund ? (
       <button className="withdraw-button" disabled>
         Refund has been processed
       </button>
     ) : (
-      <button className="withdraw-button" onClick={handleRefund} disabled={btnLoader}>
+      <button className="withdraw-button" onClick={handleRefund} disabled={btnLoader || hasRefund}>
         {btnLoader ? 'Loading...' : 'Refund'}
         {hasRefund ? ' Success' : ''}
       </button>
     )}
+    <div className="flex flex-col items-center justify-center">
+      <p className="text-red-600 font-bold text-center max-w-[300px]">Withdraw Request has been Rejected by Trustees</p>
+      <p className="text-sm text-red-600">Balance will be refund to all contributors</p>
+    </div>
   </>
 )}
 

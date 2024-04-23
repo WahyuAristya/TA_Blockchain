@@ -205,7 +205,6 @@ contract Project {
 
     // Function to retrieve trustee addresses
     function getTrustees() public view returns (address[] memory) {
-        
         return trustees;
     }
 }
