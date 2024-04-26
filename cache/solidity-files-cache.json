@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\ASUS\\Documents\\Kuliah\\TA-NI-BOS\\Blockchain\\Program-Fix\\contracts\\Crowdfunding.sol": {
-      "lastModificationDate": 1713781162150,
-      "contentHash": "c122483df6ed6ea57f995c5c615215ee",
+      "lastModificationDate": 1713962136729,
+      "contentHash": "45c1307797e26221ca8fa06d360a42a6",
       "sourceName": "contracts/Crowdfunding.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -39,8 +39,8 @@
       ]
     },
     "C:\\Users\\ASUS\\Documents\\Kuliah\\TA-NI-BOS\\Blockchain\\Program-Fix\\contracts\\Project.sol": {
-      "lastModificationDate": 1713752291737,
-      "contentHash": "dd75132744a81bdcecdb1c620c5c271c",
+      "lastModificationDate": 1713962110584,
+      "contentHash": "e35ba3b6e863d238f7bbd9ed501bd6e5",
       "sourceName": "contracts/Project.sol",
       "solcConfig": {
         "version": "0.8.4",

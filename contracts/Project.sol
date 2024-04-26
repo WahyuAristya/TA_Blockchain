@@ -3,7 +3,6 @@
 pragma solidity ^0.8.0;
 
 contract Project {
-    // Project state
     enum State {
         Fundraising,
         Expired,
@@ -20,9 +19,8 @@ contract Project {
         address payable reciptent;
     }
 
-    // Variables
     address payable public creator;
-    address[] public trustees; // Addresses of the trustees
+    address[] public trustees;
     uint256 public minimumContribution;
     uint256 public deadline;
     uint256 public targetContribution;
@@ -92,10 +90,6 @@ contract Project {
         } else if (block.timestamp > deadline) {
             state = State.Expired;
         }
-    }
-
-    function setStateExpired() public {
-        state = State.Expired;
     }
 
     function contribute(address _contributor) public payable {
@@ -176,6 +170,7 @@ contract Project {
         address payable user = payable(msg.sender);
         user.transfer(contributors[msg.sender]);
         contributors[msg.sender] = 0;
+
         return true;
     }
 
@@ -205,6 +200,7 @@ contract Project {
 
     // Function to retrieve trustee addresses
     function getTrustees() public view returns (address[] memory) {
+
         return trustees;
     }
 }

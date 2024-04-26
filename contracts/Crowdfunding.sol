@@ -5,9 +5,6 @@ import './Project.sol';
 
 contract Crowdfunding{
 
-// [X] Semua orang dapat membuat kampanye donasi
-// [X] Get All project list
-// [X]  contribute amount
 
 event ProjectStarted(
     address projectContractAddress ,
@@ -31,7 +28,6 @@ event ContributionReceived(
  Project[] private projects;
 
   // @dev Anyone can start a fund rising
- // @return null
 
  function createProject(
     uint256 minimumContribution,
@@ -40,10 +36,7 @@ event ContributionReceived(
     string memory projectTitle,
     string memory projectDesc
  ) public {
-
-   deadline = deadline;
    
-
    Project newProject = new Project(msg.sender, minimumContribution,deadline,targetContribution,projectTitle,projectDesc);
    projects.push(newProject);
  
@@ -65,13 +58,6 @@ event ContributionReceived(
  // @dev Get projects list
 // @return array
 
-// function updateProjectStates() public {
-//     for (uint256 i = 0; i < projects.length; i++) {
-//         if (block.timestamp*1000 > (projects[i].deadline()) && (projects[i]).state() == Project.State.Fundraising) {
-//             (projects[i]).setStateExpired();
-//         }
-//     }
-// }
 
 function returnAllProjects() external view returns(Project[] memory){
    return projects;
@@ -94,14 +80,4 @@ function contribute(address _projectAddress) public payable{
    emit ContributionReceived(_projectAddress,msg.value,msg.sender);
 }
 
-   // function changeState(Project[] memory projectList) public returns(Project[] memory){
-   //    for(uint i = 0; i < projectList.length; i++){
-   //       projectList[i].setState(Project.State.Expired);
-   //       //   Project.State projectState = projectList[i].state();
-   //       if(projectList[i].state() == Project.State.Fundraising){
-   //          projectList[i].setState(Project.State.Expired);
-   //       }
-   //    }
-   //    return projectList;
-   // }
 }
