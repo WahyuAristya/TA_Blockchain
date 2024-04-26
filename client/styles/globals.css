@@ -61,3 +61,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     @apply border bg-emerald-500 text-white rounded-md p-2 mt-1  font-bold hover:bg-emerald-600 active:bg-emerald-700 focus:outline-none focus:ring focus:ring-emerald-300;
     width: 100%;
   }
+
+  .yes-button{
+    @apply border bg-emerald-500 text-white rounded-md p-2 mt-1  font-bold hover:bg-emerald-600 active:bg-emerald-700 focus:outline-none focus:ring focus:ring-emerald-300;
+    width: 100%;
+  }
+
+  .no-button{
+    @apply border bg-red-500 text-white rounded-md p-2 mt-1  font-bold hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300;
+    width: 100%;
+  }

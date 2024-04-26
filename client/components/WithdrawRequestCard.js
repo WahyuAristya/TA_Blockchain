@@ -198,11 +198,11 @@ return (
         <p className="text-sm text-red-600"> <span className="font-bold">Note : </span> Only Trustees Can Vote</p>
         {(props.status !== 'Completed' && trustees.includes(account)) && (
           <>
-            <button className="withdraw-button" disabled={hasVoted} onClick={() => vote(props.requestId, 'Yes')}>
+            <button className="yes-button" disabled={btnLoader===props.requestId || hasVoted} onClick={() => vote(props.requestId, 'Yes')}>
               {btnLoader === props.requestId ? 'Loading...' : 'Yes'}
               {hasVoted ? ' Success' : ''}
             </button>
-            <button className="withdraw-button" disabled={hasVoted} onClick={() => vote(props.requestId, 'No')}>
+            <button className="no-button" disabled={btnLoader===props.requestId || hasVoted} onClick={() => vote(props.requestId, 'No')}>
               {btnLoader === props.requestId ? 'Loading...' : 'No'}
               {hasVoted ? ' Success' : ''}
             </button>

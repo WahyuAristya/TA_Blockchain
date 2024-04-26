@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useRef} from 'react'
 import Link from "next/link";
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -15,18 +15,35 @@ const Navbar = () => {
     const [openMenu,setOpenMenu] = useState(false);
     const account = useSelector(state=>state.web3Reducer.account);
     const [ethToIdrRate, setEthToIdrRate] = useState(null);
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
         const fetchEthToIdrRate = async () => {
-          try {
-            const rate = await ethToIdrConverter(1); // Konversi 1 ETH ke IDR
-            setEthToIdrRate(rate);
-          } catch (error) {
-            console.error('Error fetching ETH to IDR rate:', error);
-          }
+            try {
+                const rate = await ethToIdrConverter(1); // Konversi 1 ETH ke IDR
+                setEthToIdrRate(rate);
+            } catch (error) {
+                console.error('Error fetching ETH to IDR rate:', error);
+            }
         };
         fetchEthToIdrRate();
+
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setOpenMenu(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
     }, []);
+
+    const handleDropdownClick = () => {
+        setOpenMenu(!openMenu);
+    };
 
 
     
@@ -54,11 +71,44 @@ const Navbar = () => {
                 <div className="flex space-x-4">
                     <Link href="/dashboard"  ><span className={`${router.pathname === "/dashboard"?"bg-[#F7C984]":""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay`}>Dashboard</span></Link>
                     <Link href="/my-contributions"><span className={`${router.pathname === "/my-contributions"?"bg-[#F7C984]":""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay`}>My contribution</span></Link>
-                    <Link href="https://sepolia.etherscan.io/address/0x33A8497236c7417582E6aBa98b6b0A12E251f80c" passHref>
-                        <a target="_blank" rel="noopener noreferrer" className={`${router.pathname === "https://sepolia.etherscan.io/address/0xcE7A4D7eC29B09b81004EE886Fd372d37C7404AE" ? "bg-[#F7C984]" : ""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay flex items-center`}>
-                            View Etherscan <ExternalLinkIcon className="h-4 w-4 inline-block ml-1 text-gray-400" />
-                        </a>
-                    </Link>
+                    {/* Dropdown */}
+                    <div className="relative" ref={dropdownRef}>
+                        <button
+                            onClick={handleDropdownClick}
+                            type="button"
+                            className={`${openMenu ? 'bg-[#F7C984] text-greay' : ''} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay`}
+                        >
+                            View Etherscan
+                            <ExternalLinkIcon className="h-4 w-4 inline-block ml-1 text-gray-400" />
+                        </button>
+                        {/* Dropdown */}
+                        {openMenu && (
+                            <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                    <Link href="https://sepolia.etherscan.io/address/0xb52F06F7890346FFd1F004AA831a0937F24CEAEc" passHref>
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#F7C984] hover:text-gray-900"
+                                        >
+                                            Fund Data
+                                            <ExternalLinkIcon className="h-4 w-4 inline-block ml-1 text-gray-400" />
+                                        </a>
+                                    </Link>
+                                    <Link href="https://sepolia.etherscan.io/address/0xd7029c9b1dd23ccef2e61d5a1277bf10ff2fdebe" passHref>
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#F7C984] hover:text-gray-900"
+                                        >
+                                            Withdraw & Vote Data
+                                            <ExternalLinkIcon className="h-4 w-4 inline-block ml-1 text-gray-400" />
+                                        </a>
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
+                        </div>
                 </div>
                 </div>
                 
