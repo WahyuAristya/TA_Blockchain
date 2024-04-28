@@ -7,7 +7,7 @@ import { groupContributionByProject, groupContributors, projectDataFormatter, st
 import { useAddress } from '@thirdweb-dev/react';
 
 
-const crowdFundingContractAddress = "0x726BD538d928f92b2C76e819eA4514eF64bf1184"; //deploy testnet sepolia thirdweb
+const crowdFundingContractAddress = "0x6ab281374786922967072c289a61aB631f6ACA55"; //deploy testnet sepolia thirdweb
 
 // const crowdFundingContractAddress = "0xb63923cB06C1320481E5c97550486F8a89660E2b";
 
