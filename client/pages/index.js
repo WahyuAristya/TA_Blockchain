@@ -54,6 +54,7 @@ export default function Home() {
           alt="Animated Title"
           width={'200%'}
           height={'200%'}
+          loading="eager"
           maxWidth= {'200px'}
           marginBottom= {'20px'}
           display= {'block'}
@@ -120,7 +121,6 @@ export default function Home() {
             width={'600%'}
             height={'600%'}
             loading="eager"
-            // style={{ width: '100%', maxWidth: '600px', height: 'auto'}}
           />
         </div>
       </div>
