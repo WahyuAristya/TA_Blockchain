@@ -13,7 +13,6 @@ import Script from "next/script";
 
 import {
 	ThirdwebProvider,
-	coinbaseWallet,
 	metamaskWallet,
 	phantomWallet,
 	trustWallet,
