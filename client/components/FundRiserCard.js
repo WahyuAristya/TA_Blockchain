@@ -281,7 +281,7 @@ useEffect(() => {
         )}
           <p className="text-md font-bold font-sans text-gray">Deadline</p>
           <p className="text-sm font-bold font-sans text-gray-600 ">{props.deadline}</p>
-          <p className="text-md font-bold font-sans text-gray">Creator's Wallet Address</p>
+          <p className="text-md font-bold font-sans text-gray">Creator Wallet Address</p>
           <p className="text-sm font-bold font-sans text-gray-600">{props.creator}</p>
         </div>
         <div className="inner-card my-6 w-full lg:w-3/5">
