@@ -24,12 +24,12 @@ async function main() {
   // Deploy Project Contract
   const Project = await hre.ethers.getContractFactory("Project");
   const project = await Project.deploy(
-    '0x4aeE1d07F794Db63B3De35407365485D4fd79284',
-    1,
+    '0xb0a55654c8Bc42e8b904A0c65c4b0e006c3dD326',
+    0,
     1643482800,
     10,
-    'Deploy',
-    'deploy contract'
+    'DeployBaru',
+    'deploy contract baru'
   );
 
   await project.deployed();

@@ -7,13 +7,13 @@ import { groupContributionByProject, groupContributors, projectDataFormatter, st
 import { useAddress } from '@thirdweb-dev/react';
 
 
-const crowdFundingContractAddress = "0xb52F06F7890346FFd1F004AA831a0937F24CEAEc"; //deploy testnet sepolia thirdweb
+const crowdFundingContractAddress = "0xD45CeCD9d187E579D986a70A36D23E1FAB95A399"; //deploy testnet sepolia thirdweb
 
 // const crowdFundingContractAddress = "0xb63923cB06C1320481E5c97550486F8a89660E2b";
 
 //Load web3
 export const loadWeb3 = async (dispatch) => {
-  const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/61088a0a8b6d4a0b9db34c8957e3c2d5");
+  const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/v3/8d05e94c5cec4a68a92798ad1852d1fe");
   // const web3 = new Web3(Web3.givenProvider || "https://sepolia.infura.io/");
   // const web3 = new Web3(Web3.givenProvider || "https://localhost:7545");
   dispatch(actions.web3Loaded(web3));
@@ -153,10 +153,10 @@ export const getContributors = async (web3,contractAddress,onSuccess,onError) =>
 }
 
 // Request for withdraw amount
-export const createWithdrawRequest = async (web3,contractAddress,data,onSuccess,onError) =>{
+export const withdrawRequest = async (web3,contractAddress,data,onSuccess,onError) =>{
   const {description,amount,recipient,account} = data;
     var projectConnector = new web3.eth.Contract(Project.abi,contractAddress);
-    await projectConnector.methods.createWithdrawRequest(description,amount,recipient).send({from:account})
+    await projectConnector.methods.withdrawRequest(description,amount,recipient).send({from:account})
     .on('receipt', function(receipt){
       const withdrawReqReceipt = receipt.events.WithdrawRequestCreated.returnValues;;
       const formattedReqData = withdrawRequestDataFormatter(withdrawReqReceipt,withdrawReqReceipt.requestId)
@@ -186,7 +186,7 @@ export const getAllWithdrawRequest = async (web3,contractAddress,onLoadRequest) 
 }
 
 // Vote for withdraw request
-export const voteWithdrawRequest = async (web3, data, onSuccess, onError) => {
+export const trusteesVoteWithdrawRequest = async (web3, data, onSuccess, onError) => {
   const { contractAddress, reqId, vote, account } = data;
   var projectConnector = new web3.eth.Contract(Project.abi, contractAddress);
   
@@ -194,7 +194,7 @@ export const voteWithdrawRequest = async (web3, data, onSuccess, onError) => {
   const voteValue = vote === "No" ? 0 : 1;
 
   try {
-    await projectConnector.methods.voteWithdrawRequest(reqId, voteValue).send({ from: account });
+    await projectConnector.methods.trusteesVoteWithdrawRequest(reqId, voteValue).send({ from: account });
     onSuccess();
   } catch (error) {
     onError(error.message);
@@ -218,7 +218,7 @@ export const requestRefund = async (web3, data, onSuccess, onError) => {
 export const withdrawAmount = async (web3,dispatch,data,onSuccess,onError) =>{
   const {contractAddress,reqId,account,amount} = data;
   var projectConnector = new web3.eth.Contract(Project.abi,contractAddress);
-  await projectConnector.methods.withdrawRequestedAmount(reqId).send({from:account})
+  await projectConnector.methods.withdrawFunding(reqId).send({from:account})
   .on('receipt', function(receipt){
     console.log(receipt)
     dispatch(actions.withdrawContractBalance({

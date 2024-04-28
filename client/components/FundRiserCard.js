@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import * as actions from "../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
-import { contribute, createWithdrawRequest, getTrustees } from '../redux/interactions';
+import { contribute, withdrawRequest, getTrustees } from '../redux/interactions';
 import { etherToWei, ethToIdrConverter } from '../helper/helper';
 import { toastSuccess, toastError } from '../helper/toastMessage';
-import { ExclamationIcon } from '@heroicons/react/outline';
+import { ExclamationIcon, ExternalLinkIcon } from '@heroicons/react/outline';
+
 
 const colorMaker = (state) => {
   if (state === 'Fundraising') {
@@ -212,7 +213,7 @@ useEffect(() => {
       toastError(message);
     };
 
-    createWithdrawRequest(web3, projectId, data, onSuccess, onError);
+    withdrawRequest(web3, projectId, data, onSuccess, onError);
   };
 
   useEffect(() => {
@@ -221,13 +222,48 @@ useEffect(() => {
   }, [props.address]);
 
 
+
   return (
     <div className="card relative overflow-hidden my-4">
       <div className={`ribbon ${colorMaker(props.state)}`}>{props.state}</div>
       <Link href={`/project-details/${props.address}`}>
         <h1 className="font-sans text-2xl text-gray font-bold hover:text-sky-500 hover:cursor-pointer border-b border-solid border-gray-200 pb-2">{props.title}</h1>
       </Link>
-      <p className="text-md font-semibold font-sans text-gray mt-2">Creation Time</p>
+      <p className="text-md font-semibold font-sans text-gray mt-2">Funding Address</p>
+      <a href={`https://sepolia.etherscan.io/address/${props.address}`} target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-stone-800 tracking-tight hover:text-sky-500 hover:cursor-pointer">
+  <span className="tooltip">{props.address}</span>
+  <ExternalLinkIcon className="h-4 w-5 inline-block ml-1 text-gray-400 align-middle " />
+  <style jsx>{`
+    .tooltip {
+      position: relative;
+      white-space: nowrap; /* Tambahkan properti ini untuk membuat tulisan satu baris */
+    }
+
+    .tooltip::before {
+      content: 'Click to view Withdraw & Vote Transactions on Etherscan';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(50%);
+      padding: 4px 8px;
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-size: 0.75rem;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1;
+    }
+
+    .tooltip:hover::before {
+      visibility: visible;
+      opacity: 1;
+    }
+  `}</style>
+</a>
+
+      <p className="text-md font-semibold font-sans text-gray">Creation Time</p>
       <p className="font-sans text-sm text-stone-800 tracking-tight">{creationTimeMap[props.address]}</p>
       <div className="text-md font-semibold font-sans text-gray">Latest Block Timestamp</div>
       <div className="font-sans text-sm text-stone-800 tracking-tight">{latestBlockTimestamp ? new Date(latestBlockTimestamp * 1000).toLocaleString() : 'Loading...'}</div>

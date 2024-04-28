@@ -3,7 +3,7 @@ require("@nomiclabs/hardhat-waffle");
 
 
 module.exports = {
-  solidity: "0.8.4",
+  solidity: "0.8.6",
   paths: {
     artifacts: "./client/artifacts",
   },
@@ -15,7 +15,7 @@ module.exports = {
       url: "HTTP://127.0.0.1:7545",
     },
     sepolia: {
-      url: 'https://sepolia.infura.io/v3/9ac6be8f5c9749bda6ac74a57d8e9695',
+      url: 'https://sepolia.infura.io/v3/8d05e94c5cec4a68a92798ad1852d1fe',
       accounts: ['09b805feff89faf19450027dd508f143590b5bd2e1075ff68ccbad8a160c8810']
     }
   },

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toastError, toastSuccess } from '../helper/toastMessage';
-import { voteWithdrawRequest, withdrawAmount, requestRefund, getTrustees  } from '../redux/interactions';
+import { trusteesVoteWithdrawRequest, withdrawAmount, requestRefund, getTrustees  } from '../redux/interactions';
 import { ExclamationCircleIcon } from '@heroicons/react/outline';
 
 const colorMaker = (state) => {
@@ -126,7 +126,7 @@ const WithdrawRequestCard = ({ props, withdrawReq, setWithdrawReq, contractAddre
       setBtnLoader(false);
       toastError(message);
     };
-    voteWithdrawRequest(web3, data, onSuccess, onError);
+    trusteesVoteWithdrawRequest(web3, data, onSuccess, onError);
   };
 
   useEffect(() => {

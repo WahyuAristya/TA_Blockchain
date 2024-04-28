@@ -85,17 +85,17 @@ const Navbar = () => {
                         {openMenu && (
                             <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                 <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <Link href="https://sepolia.etherscan.io/address/0xb52F06F7890346FFd1F004AA831a0937F24CEAEc" passHref>
+                                    <Link href="https://sepolia.etherscan.io/address/0xD45CeCD9d187E579D986a70A36D23E1FAB95A399" passHref>
                                         <a
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#F7C984] hover:text-gray-900"
                                         >
-                                            Fund Data
+                                            Funding Data
                                             <ExternalLinkIcon className="h-4 w-4 inline-block ml-1 text-gray-400" />
                                         </a>
                                     </Link>
-                                    <Link href="https://sepolia.etherscan.io/address/0xd7029c9b1dd23ccef2e61d5a1277bf10ff2fdebe" passHref>
+                                    {/* <Link href="https://sepolia.etherscan.io/address/0xd7029c9b1dd23ccef2e61d5a1277bf10ff2fdebe" passHref>
                                         <a
                                             target="_blank"
                                             rel="noopener noreferrer"
@@ -104,7 +104,7 @@ const Navbar = () => {
                                             Withdraw & Vote Data
                                             <ExternalLinkIcon className="h-4 w-4 inline-block ml-1 text-gray-400" />
                                         </a>
-                                    </Link>
+                                    </Link> */}
                                 </div>
                             </div>
                         )}

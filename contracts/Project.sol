@@ -84,7 +84,7 @@ contract Project {
         ];
     }
 
-    function checkFundingCompleteOrExpire() internal {
+    function checkCompleteOrExpire() internal {
         if (raisedAmount >= targetContribution) {
             state = State.Successful;
         } else if (block.timestamp > deadline) {
@@ -100,7 +100,7 @@ contract Project {
             contributors[_contributor] += msg.value;
             raisedAmount += msg.value;
             emit FundingReceived(_contributor, msg.value, raisedAmount);
-            checkFundingCompleteOrExpire();
+            checkCompleteOrExpire();
         }
     }
 
@@ -108,7 +108,7 @@ contract Project {
         return address(this).balance;
     }
 
-    function createWithdrawRequest(string memory _description, uint256 _amount, address payable _reciptent) public isCreator() {
+    function withdrawRequest(string memory _description, uint256 _amount, address payable _reciptent) public isCreator() {
         WithdrawRequest storage newRequest = withdrawRequests[numOfWithdrawRequests];
         numOfWithdrawRequests++;
 
@@ -120,10 +120,10 @@ contract Project {
         newRequest.reciptent = _reciptent;
 
         emit WithdrawRequestCreated(numOfWithdrawRequests, _description, _amount, 0, 0, false, _reciptent);
-        checkFundingCompleteOrExpire();
+        checkCompleteOrExpire();
     }
 
-    function voteWithdrawRequest(uint256 _requestId, bool _vote) public onlyTrustee() {
+    function trusteesVoteWithdrawRequest(uint256 _requestId, bool _vote) public onlyTrustee() {
         WithdrawRequest storage requestDetails = withdrawRequests[_requestId];
         require(!requestDetails.voters[msg.sender], 'You already voted!');
         
@@ -137,7 +137,7 @@ contract Project {
         emit WithdrawVote(msg.sender, requestDetails.yesVotes + requestDetails.noVotes);
     }
 
-    function withdrawRequestedAmount(uint256 _requestId) public isCreator() {
+    function withdrawFunding(uint256 _requestId) public isCreator() {
         WithdrawRequest storage requestDetails = withdrawRequests[_requestId];
         require(requestDetails.isCompleted == false,'Request already completed');
         
@@ -168,9 +168,10 @@ contract Project {
     function requestRefund() public returns(bool) {
         require(contributors[msg.sender] > 0, 'You dont have any contributed amount!');
         address payable user = payable(msg.sender);
-        user.transfer(contributors[msg.sender]);
+        uint256 amount = contributors[msg.sender];
+        user.transfer(amount);
         contributors[msg.sender] = 0;
-
+        emit Refund(msg.sender, amount);
         return true;
     }
 
