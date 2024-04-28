@@ -73,6 +73,7 @@ export default function Home() {
           src="/donation.ico"
           width={'40%'}
           height={'40%'}
+          loading="eager"
         />
         <h4 className='font-mono text-xl text-gray-900 font-bold lg:block' style={{marginLeft: '10px'}}>CROWDFUNDING DONATION</h4>
       </div>
@@ -118,6 +119,7 @@ export default function Home() {
             alt="Ethereum Logo"
             width={'600%'}
             height={'600%'}
+            loading="eager"
             // style={{ width: '100%', maxWidth: '600px', height: 'auto'}}
           />
         </div>
