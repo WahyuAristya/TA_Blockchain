@@ -85,7 +85,7 @@ const Navbar = () => {
                         {openMenu && (
                             <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                 <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <Link href="https://sepolia.etherscan.io/address/0xD45CeCD9d187E579D986a70A36D23E1FAB95A399" passHref>
+                                    <Link href="https://sepolia.etherscan.io/address/0x726BD538d928f92b2C76e819eA4514eF64bf1184" passHref>
                                         <a
                                             target="_blank"
                                             rel="noopener noreferrer"

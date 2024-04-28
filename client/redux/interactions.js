@@ -7,7 +7,7 @@ import { groupContributionByProject, groupContributors, projectDataFormatter, st
 import { useAddress } from '@thirdweb-dev/react';
 
 
-const crowdFundingContractAddress = "0xD45CeCD9d187E579D986a70A36D23E1FAB95A399"; //deploy testnet sepolia thirdweb
+const crowdFundingContractAddress = "0x726BD538d928f92b2C76e819eA4514eF64bf1184"; //deploy testnet sepolia thirdweb
 
 // const crowdFundingContractAddress = "0xb63923cB06C1320481E5c97550486F8a89660E2b";
 
@@ -68,34 +68,6 @@ export const startFundRaising = async(web3,CrowdFundingContract,data,onSuccess,o
     onError(error.message)
   })
 }
-
-// 1 - Get all funding project address
-// 2 - Connect with funding project contract
-// 3 - Get project details
-// export const getAllFunding = async(CrowdFundingContract,web3,dispatch) =>{
-//   const account = await loadAccount(web3, dispatch);
-
-//   await CrowdFundingContract.methods.updateProjectStates().send({from:account, value: 0})
-//   const fundingProjectList = await CrowdFundingContract.methods.returnAllProjects().call()
-
-//    const projectContracts = [];
-//    const projects = [];
-
-
-//    await Promise.all(fundingProjectList.map(async (data)=>{
-//     var projectConnector = new web3.eth.Contract(Project.abi,data);
-//     const details = await projectConnector.methods.getProjectDetails().call()
-//     projectContracts.push(projectConnector);
-//     const formattedProjectData = projectDataFormatter(details,data)
-
-//     projects.push(formattedProjectData)
-//    }))
-
-
-//    dispatch(actions.projectContractsLoaded(projectContracts));
-//    dispatch(actions.projectsLoaded(projects));
-
-// }
 
 export const getAllFunding = async (CrowdFundingContract, web3, dispatch, props) => {
   const fundingProjectList = await CrowdFundingContract.methods.returnAllProjects().call();

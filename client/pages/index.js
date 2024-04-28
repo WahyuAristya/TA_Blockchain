@@ -52,11 +52,12 @@ export default function Home() {
         <Image
           src="/logo.gif" // Ganti URL gambar bergerak Anda di sini
           alt="Animated Title"
-          width= '100%'
-          maxWidth= '200px'
-          marginBottom= '20px'
-          display= 'block'
-          margin= '0 auto'
+          width={'200%'}
+          height={'200%'}
+          maxWidth= {'200px'}
+          marginBottom= {'20px'}
+          display= {'block'}
+          margin= {'0 auto'}
         />
       <h1 style={{ fontWeight: 'bold', fontSize: '1.2rem', lineHeight:'1.6', margin: '0.6rem ' }}>Your Gateway to the New Decentralized Crowdfunding World</h1>
       <p style={{ fontWeight: 'normal ', fontSize: '1rem',  margin: '0.5rem ' }}> Please Connect a Wallet to Proceed</p>
@@ -70,13 +71,10 @@ export default function Home() {
       <div className="absolute top-8 left-10 flex-shrink-0 flex items-center">
         <Image
           src="/donation.ico"
-          width= '100%'
-          maxWidth='40px'
-          marginRight='10px'
-          display='block'
-          margin='1 auto'
+          width={'40%'}
+          height={'40%'}
         />
-        <h4 className='font-mono text-xl text-gray-900 font-bold lg:block'>CROWDFUNDING DONATION</h4>
+        <h4 className='font-mono text-xl text-gray-900 font-bold lg:block' style={{marginLeft: '10px'}}>CROWDFUNDING DONATION</h4>
       </div>
       <div className="flex justify-center w-full items-center" style={{padding: '0 100px'}}>
         <div className="flex flex-col w-full lg:w-2/3 px-8 lg:px-0" >
@@ -118,9 +116,8 @@ export default function Home() {
           <Image
             src="/blockchain.png"
             alt="Ethereum Logo"
-            maxWidth={'600px'}
-            width={'100%'}
-            height={'auto%'}
+            width={'600%'}
+            height={'600%'}
             // style={{ width: '100%', maxWidth: '600px', height: 'auto'}}
           />
         </div>
