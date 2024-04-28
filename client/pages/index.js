@@ -66,6 +66,8 @@ export default function Home() {
       <div className="absolute top-8 left-10 flex-shrink-0 flex items-center">
         <Image
           src="/donation.ico"
+          width={'100%'}
+          height={'100%'}
           style={{ width: '100%', maxWidth: '40px', marginRight: '10px', display: 'block', margin: '1 auto' }}
         />
         <h4 className='font-mono text-xl text-gray-900 font-bold lg:block'>CROWDFUNDING DONATION</h4>
@@ -110,6 +112,8 @@ export default function Home() {
           <Image
             src="/blockchain.png"
             alt="Ethereum Logo"
+            width={'100%'}
+            height={'100%'}
             style={{ width: '100%', maxWidth: '600px', height: 'auto'}}
           />
         </div>
