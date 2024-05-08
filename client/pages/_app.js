@@ -71,8 +71,8 @@ function MyApp({ Component, pageProps }) {
           okxWallet(),
         ]}
         dAppMeta={{
-          name: "thirdweb powered dApp",
-          url: "http://localhost:3000/",
+          name: "Crowdfunding Donation",
+          url: "https://wa-crowdfunding-dapps.vercel.app/",
         }}
 			>
 				<Component {...pageProps} />
