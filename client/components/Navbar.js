@@ -71,6 +71,11 @@ const Navbar = () => {
                 <div className="flex space-x-4">
                     <Link href="/dashboard"  ><span className={`${router.pathname === "/dashboard"?"bg-[#F7C984]":""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay`}>Dashboard</span></Link>
                     <Link href="/my-contributions"><span className={`${router.pathname === "/my-contributions"?"bg-[#F7C984]":""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay`}>My contribution</span></Link>
+                    <Link href="/withdraw-and-trustees">
+                        <span className={`${router.pathname === "/withdraw-and-trustees"?"bg-[#F7C984]":""} text-greay px-3 py-2 rounded-md text-sm font-medium hover:cursor-pointer hover:bg-[#F7C984] hover:text-greay`}>
+                            Withdraw & Trustees Info
+                        </span>
+                    </Link>
                     {/* Dropdown */}
                     <div className="relative" ref={dropdownRef}>
                         <button
@@ -85,7 +90,7 @@ const Navbar = () => {
                         {openMenu && (
                             <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                 <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <Link href="https://sepolia.etherscan.io/address/0x6ab281374786922967072c289a61aB631f6ACA55" passHref>
+                                    <Link href="https://sepolia.etherscan.io/address/0xd073Ee90134fa49217D8e7113F7F9CDb2635dde4" passHref>
                                         <a
                                             target="_blank"
                                             rel="noopener noreferrer"

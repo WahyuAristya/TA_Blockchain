@@ -39,8 +39,11 @@ const MyContributions = () => {
             contributions.length > 0?
                 contributions.map((data,i)=>(
                     <div className='inner-card my-2 flex flex-row w-full lg:w-1/4' key={i}>
-                        <div className='lg:w-1/5'>
-                            <div className='p-6 w-8 h-8 mx-auto my-auto rounded-md bg-slate-300 '></div>
+                        <div className='lg:w-1/5 flex items-center justify-center'>
+                            {/* <div className='p-6 w-8 h-8 mx-auto my-auto rounded-md bg-slate-300 '></div> */}
+                            <div className="rounded-full bg-slate-300 p-1">
+                                    <img src="/eth.png" alt="ETH Logo" className="w-6 h-8" />
+                            </div>
                         </div>
                         <div className='lg:w-4/5'>
                             <Link href={`/project-details/${data.projectAddress}`}><p className='text-md font-bold text-gray-800 w-40 truncate cursor-pointer '>{data.projectAddress}</p></Link>
@@ -58,4 +61,4 @@ const MyContributions = () => {
   )
 }
 
-export default authWrapper(MyContributions)
+export default authWrapper(MyContributions);
