@@ -21,7 +21,8 @@ const WithdrawAndTrusteesInfo = () => {
                 <ol className="list-decimal list-inside">
                     <li className="mb-2 text-lg">Ensure that your contribution amount or withdraw status is eligible for create withdraw request according to the platform's withdrawal policy.</li>
                     <li className="mb-2 text-lg">Press the withdrawal request button on confirm in your crypto wallet.</li>
-                    <li className="mb-2 text-lg">Wait for trustees to vote your withdraw request. This process takes approximately 2x24 hours (you can contract the trustees to confirm your withdraw reqeust)</li>
+                    <li className="mb-2 text-lg">Wait for trustees to vote your withdraw request. This process takes approximately 2x24 hours</li>
+                    <li className="mb-2 text-lg">You can contact the trustees to confirm your withdraw request.</li>
                     <li className="mb-2 text-lg">Once approved, withdrawals can be made by pressing the withdraw button.</li>
                     <li className="mb-2 text-lg">If the request is rejected, the withdrawal cannot be made and the contributors has the right to refund.</li>
                 </ol>
