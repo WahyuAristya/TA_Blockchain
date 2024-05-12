@@ -24,7 +24,7 @@ const WithdrawAndTrusteesInfo = () => {
                     <li className="mb-2 text-lg">Wait for trustees to vote your withdraw request. This process takes approximately 2x24 hours</li>
                     <li className="mb-2 text-lg">You can contact the trustees to confirm your withdraw request.</li>
                     <li className="mb-2 text-lg">Once approved, withdrawals can be made by pressing the withdraw button.</li>
-                    <li className="mb-2 text-lg">If the request is rejected, the withdrawal cannot be made and the contributors has the right to refund.</li>
+                    <li className="mb-2 text-lg">If the request rejected, the withdrawal cannot be made and the contributors has the right to refund.</li>
                 </ol>
             </div>
             
