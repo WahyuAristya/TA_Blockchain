@@ -19,7 +19,7 @@ const WithdrawAndTrusteesInfo = () => {
                 <h2 className="text-3xl font-bold mb-4">Withdraw Request Guidelines</h2>
                 <p className="mb-4">To request a withdrawal from the crowdfunding platform, please follow these guidelines:</p>
                 <ol className="list-decimal list-inside">
-                    <li className="mb-2 text-lg">Ensure that your contribution amount or withdraw status is eligible for create withdraw request according to the platform's withdrawal policy.</li>
+                    <li className="mb-2 text-lg">Ensure that your contribution amount or withdraw status is eligible for create withdraw request according to the platforms withdrawal policy.</li>
                     <li className="mb-2 text-lg">Press the withdrawal request button on confirm in your crypto wallet.</li>
                     <li className="mb-2 text-lg">Wait for trustees to vote your withdraw request. This process takes approximately 2x24 hours</li>
                     <li className="mb-2 text-lg">You can contact the trustees to confirm your withdraw request.</li>
