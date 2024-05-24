@@ -30,20 +30,32 @@ import {
 function MyApp({ Component, pageProps }) {
   const dispatch = useDispatch()
 
-
   useEffect(() => {
+    const loadBlockchain = async () => {
+      const web3 = await loadWeb3(dispatch);
+      if (web3) {
+          await loadAccount(web3, dispatch);
+          const crowdFundingContract = await loadCrowdFundingContract(web3, dispatch);
+          await getAllFunding(crowdFundingContract, web3, dispatch);
+      }
+  };
     loadBlockchain()
-  }, [])
+  }, [dispatch]);
+
+
+//   useEffect(() => {
+//     loadBlockchain()
+//   }, [])
   
 
-  const loadBlockchain = async () => {
-    const web3 = await loadWeb3(dispatch);
-    if (web3) {
-        const account = await loadAccount(web3, dispatch);
-        const crowdFundingContract = await loadCrowdFundingContract(web3, dispatch);
-        await getAllFunding(crowdFundingContract, web3, dispatch);
-    }
-};
+//   const loadBlockchain = async () => {
+//     const web3 = await loadWeb3(dispatch);
+//     if (web3) {
+//         const account = await loadAccount(web3, dispatch);
+//         const crowdFundingContract = await loadCrowdFundingContract(web3, dispatch);
+//         await getAllFunding(crowdFundingContract, web3, dispatch);
+//     }
+// };
 
   Router.events.on("routeChangeStart",()=> NProgress.start())
   Router.events.on("routeChangeComplete",()=> NProgress.done())
